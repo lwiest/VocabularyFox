@@ -1,0 +1,313 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2018 Lorenz Wiest
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
+package de.lorenzwiest.vocabularyfox;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.jface.resource.ColorRegistry;
+import org.eclipse.jface.resource.FontRegistry;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.swt.widgets.Display;
+
+public class Resources {
+	public static final int INDENT = 10;
+
+	private static final String CR = System.getProperty("line.separator");
+
+	public static final String PREFS_FILENAME = ".preferences_vocabularyfox";
+	public static final String QUIZ_FOLDERNAME = "quizzes";
+	public static final String SAMPLE_QUIZ_FILENAME = "sample_quiz.txt";
+
+	private static FontRegistry FONT_REGISTRY;
+
+	public static final String FONT_TITLE = "font-title";
+	public static final String FONT_SEMI_TITLE = "font-semi-title";
+	public static final String FONT_SEMI_TITLE_BOLD = "font-semi-title-bold";
+	public static final String FONT_SEMI_TITLE_BOLD_ITALICS = "font-semi-title-bold-italics";
+	public static final String FONT_DEFAULT = "font-default";
+	public static final String FONT_DEFAULT_BOLD = "font-default-bold";
+	public static final String FONT_LETTER_PICKER = "font-letter-picker";
+
+	private static final Map<String, TextStyle> TEXT_STYLE_REGISTRY = new HashMap<String, TextStyle>();
+
+	public static TextStyle TS_TITLE;
+	public static TextStyle TS_SEMI_TITLE;
+	public static TextStyle TS_SEMI_TITLE_BOLD;
+	public static TextStyle TS_SEMI_TITLE_GREY;
+	public static TextStyle TS_DEFAULT;
+	public static TextStyle TS_DEFAULT_RED;
+	public static TextStyle TS_DEFAULT_BOLD;
+	public static TextStyle TS_M;
+	public static TextStyle TS_F;
+	public static TextStyle TS_M_BOLD;
+	public static TextStyle TS_F_BOLD;
+	public static TextStyle TS_ALMOST_CORRECT;
+	public static TextStyle TS_WRONG;
+	public static TextStyle TS_GREY;
+	public static TextStyle TS_RED;
+	public static TextStyle TS_SEMI_TITLE_CORRECT_BOLD;
+	public static TextStyle TS_SEMI_TITLE_M_BOLD;
+	public static TextStyle TS_SEMI_TITLE_F_BOLD;
+
+	private static ColorRegistry COLOR_REGISTRY;
+
+	public static final String COLOR_WHITE = "white";
+	public static final String COLOR_RED = "red";
+	public static final String COLOR_FOX_ORANGE = "fox-orange";
+	public static final String COLOR_LIGHT_FOX_ORANGE = "fox-orange-light";
+	public static final String COLOR_ORANGE = "orange";
+	public static final String COLOR_BLACK = "black";
+	public static final String COLOR_GREY = "grey";
+	public static final String COLOR_LIGHT_GREY = "grey-light";
+	public static final String COLOR_M = "m";
+	public static final String COLOR_M_HOVER = "m-hover";
+	public static final String COLOR_M_DARK = "m-dark";
+	public static final String COLOR_F = "f";
+	public static final String COLOR_F_HOVER = "f-hover";
+	public static final String COLOR_F_DARK = "f-dark";
+	public static final String COLOR_LETTER_PICKER = "letter-picker";
+	public static final String COLOR_LETTER_PICKER_HOVER = "letter-picker-hover";
+	public static final String COLOR_LETTER_PICKER_CLICK = "letter-pciker-click";
+
+	private static final Map<String, Image> IMAGE_REGISTRY = new HashMap<String, Image>();
+
+	public static final String IMG_SPACER = "icons/icon_spacer1x28.png";
+	public static final String IMG_COG_WHEEL = "icons/icon_cogwheel28x28.png";
+	public static final String IMG_COG_WHEEL_CLICK = "icons/icon_cogwheel28x28_click.png";
+	public static final String IMG_COG_WHEEL_HOVER = "icons/icon_cogwheel28x28_hover.png";
+	public static final String IMG_DOWNLOAD_PAGE = "icons/icon_downloadpage28x28.png";
+	public static final String IMG_DOWNLOAD_PAGE_CLICK = "icons/icon_downloadpage28x28_click.png";
+	public static final String IMG_DOWNLOAD_PAGE_HOVER = "icons/icon_downloadpage28x28_hover.png";
+	public static final String IMG_CLEAR_ENABLED = "icons/icon_clear_enabled.gif";
+	public static final String IMG_ENGLISH15x15 = "icons/icon_english15x15.png";
+	public static final String IMG_FRENCH15x15 = "icons/icon_french15x15.png";
+	public static final String IMG_ENGLISH16x16 = "icons/icon_english16x16.png";
+	public static final String IMG_FRENCH16x16 = "icons/icon_french16x16.png";
+	public static final String IMG_FOX16x16 = "icons/icon_fox16x16.png";
+	public static final String IMG_FOX32x32 = "icons/icon_fox32x32.png";
+	public static final String IMG_FOX48x48 = "icons/icon_fox48x48.png";
+
+	static {
+		IMAGE_REGISTRY.put(IMG_SPACER, ImageDescriptor.createFromFile(Resources.class, IMG_SPACER).createImage());
+		IMAGE_REGISTRY.put(IMG_COG_WHEEL, ImageDescriptor.createFromFile(Resources.class, IMG_COG_WHEEL).createImage());
+		IMAGE_REGISTRY.put(IMG_COG_WHEEL_CLICK, ImageDescriptor.createFromFile(Resources.class, IMG_COG_WHEEL_CLICK).createImage());
+		IMAGE_REGISTRY.put(IMG_COG_WHEEL_HOVER, ImageDescriptor.createFromFile(Resources.class, IMG_COG_WHEEL_HOVER).createImage());
+		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE, ImageDescriptor.createFromFile(Resources.class, IMG_DOWNLOAD_PAGE).createImage());
+		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_CLICK, ImageDescriptor.createFromFile(Resources.class, IMG_DOWNLOAD_PAGE_CLICK).createImage());
+		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_HOVER, ImageDescriptor.createFromFile(Resources.class, IMG_DOWNLOAD_PAGE_HOVER).createImage());
+		IMAGE_REGISTRY.put(IMG_CLEAR_ENABLED, ImageDescriptor.createFromFile(Resources.class, IMG_CLEAR_ENABLED).createImage());
+		IMAGE_REGISTRY.put(IMG_FRENCH15x15, ImageDescriptor.createFromFile(Resources.class, IMG_FRENCH15x15).createImage());
+		IMAGE_REGISTRY.put(IMG_ENGLISH15x15, ImageDescriptor.createFromFile(Resources.class, IMG_ENGLISH15x15).createImage());
+		IMAGE_REGISTRY.put(IMG_FRENCH16x16, ImageDescriptor.createFromFile(Resources.class, IMG_FRENCH16x16).createImage());
+		IMAGE_REGISTRY.put(IMG_ENGLISH16x16, ImageDescriptor.createFromFile(Resources.class, IMG_ENGLISH16x16).createImage());
+		IMAGE_REGISTRY.put(IMG_FOX16x16, ImageDescriptor.createFromFile(Resources.class, IMG_FOX16x16).createImage());
+		IMAGE_REGISTRY.put(IMG_FOX32x32, ImageDescriptor.createFromFile(Resources.class, IMG_FOX32x32).createImage());
+		IMAGE_REGISTRY.put(IMG_FOX48x48, ImageDescriptor.createFromFile(Resources.class, IMG_FOX48x48).createImage());
+
+		COLOR_REGISTRY = new ColorRegistry(Display.getCurrent());
+		COLOR_REGISTRY.put(COLOR_WHITE, new RGB(255, 255, 255));
+		COLOR_REGISTRY.put(COLOR_GREY, new RGB(180, 180, 180));
+		COLOR_REGISTRY.put(COLOR_BLACK, new RGB(0, 0, 0));
+		COLOR_REGISTRY.put(COLOR_RED, new RGB(220, 57, 18));
+		COLOR_REGISTRY.put(COLOR_ORANGE, new RGB(255, 153, 0));
+		//		COLOR_REGISTRY.put(COLOR_M, new RGB(51, 102, 204));
+		//		COLOR_REGISTRY.put(COLOR_F, new RGB(153, 0, 153));
+
+		COLOR_REGISTRY.put(COLOR_M, new RGB(51, 102, 204));
+		COLOR_REGISTRY.put(COLOR_M_HOVER, new RGB(85, 140, 252));
+		COLOR_REGISTRY.put(COLOR_M_DARK, new RGB(1, 52, 154));
+
+		COLOR_REGISTRY.put(COLOR_F, new RGB(184, 46, 46));
+		COLOR_REGISTRY.put(COLOR_F_HOVER, new RGB(230, 79, 79));
+		COLOR_REGISTRY.put(COLOR_F_DARK, new RGB(134, 0, 0));
+
+		COLOR_REGISTRY.put(COLOR_LETTER_PICKER, new RGB(229, 243, 251));
+		COLOR_REGISTRY.put(COLOR_LETTER_PICKER_HOVER, new RGB(203, 232, 246));
+		COLOR_REGISTRY.put(COLOR_LETTER_PICKER_CLICK, new RGB(203, 232, 246));
+
+		COLOR_REGISTRY.put(COLOR_FOX_ORANGE, new RGB(249, 113, 6));
+		COLOR_REGISTRY.put(COLOR_LIGHT_FOX_ORANGE, new RGB(255, 223, 198));
+		COLOR_REGISTRY.put(COLOR_LIGHT_GREY, new RGB(172, 172, 172));
+
+		FONT_REGISTRY = new FontRegistry(Display.getCurrent());
+		FONT_REGISTRY.put(FONT_TITLE, new FontData[] { new FontData("Calibri", 30, SWT.NORMAL) });
+		FONT_REGISTRY.put(FONT_SEMI_TITLE, new FontData[] { new FontData("Calibri", 16, SWT.NORMAL) });
+		FONT_REGISTRY.put(FONT_SEMI_TITLE_BOLD, new FontData[] { new FontData("Calibri", 16, SWT.BOLD) });
+		FONT_REGISTRY.put(FONT_SEMI_TITLE_BOLD_ITALICS, new FontData[] { new FontData("Calibri", 16, SWT.BOLD | SWT.ITALIC) });
+		FONT_REGISTRY.put(FONT_DEFAULT, new FontData[] { new FontData("Calibri", 11, SWT.NORMAL) });
+		FONT_REGISTRY.put(FONT_DEFAULT_BOLD, new FontData[] { new FontData("Calibri", 11, SWT.BOLD) });
+		FONT_REGISTRY.put(FONT_LETTER_PICKER, new FontData[] { new FontData("Calibri", 20, SWT.BOLD) });
+
+		TS_TITLE = new TextStyle();
+		TS_TITLE.font = FONT_REGISTRY.get(FONT_TITLE);
+
+		TS_SEMI_TITLE = new TextStyle();
+		TS_SEMI_TITLE.font = FONT_REGISTRY.get(FONT_SEMI_TITLE);
+
+		TS_SEMI_TITLE_BOLD = new TextStyle();
+		TS_SEMI_TITLE_BOLD.font = FONT_REGISTRY.get(FONT_SEMI_TITLE_BOLD);
+
+		TS_SEMI_TITLE_M_BOLD = new TextStyle();
+		TS_SEMI_TITLE_M_BOLD.foreground = Resources.getColor(COLOR_M);
+		TS_SEMI_TITLE_M_BOLD.font = FONT_REGISTRY.get(FONT_SEMI_TITLE_BOLD);
+
+		TS_SEMI_TITLE_F_BOLD = new TextStyle();
+		TS_SEMI_TITLE_F_BOLD.foreground = Resources.getColor(COLOR_F);
+		TS_SEMI_TITLE_F_BOLD.font = FONT_REGISTRY.get(FONT_SEMI_TITLE_BOLD);
+
+		TS_SEMI_TITLE_GREY = new TextStyle();
+		TS_SEMI_TITLE_GREY.font = FONT_REGISTRY.get(FONT_SEMI_TITLE);
+		TS_SEMI_TITLE_GREY.foreground = Resources.getColor(COLOR_GREY);
+
+		TS_DEFAULT = new TextStyle();
+		TS_DEFAULT.font = FONT_REGISTRY.get(FONT_DEFAULT);
+
+		TS_DEFAULT_BOLD = new TextStyle();
+		TS_DEFAULT_BOLD.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+
+		TS_M = new TextStyle();
+		TS_M.foreground = Resources.getColor(COLOR_M);
+		TS_M.font = FONT_REGISTRY.get(FONT_DEFAULT);
+
+		TS_F = new TextStyle();
+		TS_F.foreground = Resources.getColor(COLOR_F);
+		TS_F.font = FONT_REGISTRY.get(FONT_DEFAULT);
+
+		TS_M_BOLD = new TextStyle();
+		TS_M_BOLD.foreground = Resources.getColor(COLOR_M);
+		TS_M_BOLD.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+
+		TS_F_BOLD = new TextStyle();
+		TS_F_BOLD.foreground = Resources.getColor(COLOR_F);
+		TS_F_BOLD.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+
+		TS_WRONG = new TextStyle();
+		TS_WRONG.foreground = Resources.getColor(COLOR_RED);
+		TS_WRONG.strikeout = true;
+		TS_WRONG.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+
+		TS_ALMOST_CORRECT = new TextStyle();
+		TS_ALMOST_CORRECT.foreground = Resources.getColor(COLOR_ORANGE);
+		TS_ALMOST_CORRECT.strikeout = true;
+		TS_ALMOST_CORRECT.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+
+		TS_GREY = new TextStyle();
+		TS_GREY.foreground = Resources.getColor(COLOR_GREY);
+		TS_GREY.font = FONT_REGISTRY.get(FONT_DEFAULT);
+
+		TS_RED = new TextStyle();
+		TS_RED.foreground = Resources.getColor(COLOR_RED);
+		TS_RED.font = FONT_REGISTRY.get(FONT_DEFAULT);
+
+		TS_SEMI_TITLE_CORRECT_BOLD = new TextStyle();
+		TS_SEMI_TITLE_CORRECT_BOLD.foreground = Resources.getColor(COLOR_RED);
+		TS_SEMI_TITLE_CORRECT_BOLD.font = FONT_REGISTRY.get(FONT_SEMI_TITLE_BOLD);
+	}
+
+	public static TextStyle getTextStyle(String textStyle) {
+		if (TEXT_STYLE_REGISTRY.containsKey(textStyle)) {
+			return TEXT_STYLE_REGISTRY.get(textStyle);
+		} else {
+			System.out.println("ERROR: Text style registry does not contain text style\"" + textStyle + "\".");
+			return null;
+		}
+	}
+
+	public static void putColor(String colorId, Color color) {
+		COLOR_REGISTRY.put(colorId, color.getRGB());
+	}
+
+	public static Color getColor(String colorId) {
+		if (containsColor(colorId)) {
+			return COLOR_REGISTRY.get(colorId);
+		} else {
+			System.out.println("ERROR: Color registry does not contain color \"" + colorId + "\".");
+			return null;
+		}
+	}
+
+	public static boolean containsColor(String colorId) {
+		return COLOR_REGISTRY.hasValueFor(colorId);
+	}
+
+	public static Font getFont(String fontId) {
+		if (FONT_REGISTRY.hasValueFor(fontId)) {
+			return FONT_REGISTRY.get(fontId);
+		} else {
+			System.out.println("ERROR: Font registry does not contain font \"" + fontId + "\".");
+			return null;
+		}
+	}
+
+	public static Image getImage(String imageId) {
+		if (IMAGE_REGISTRY.containsKey(imageId)) {
+			return IMAGE_REGISTRY.get(imageId);
+		} else {
+			System.out.println("ERROR: Image registry does not contain image \"" + imageId + "\".");
+			return null;
+		}
+	}
+
+	public static String readTextFileAsResource(String filename) {
+		StringBuffer buffer = new StringBuffer();
+		BufferedReader in = new BufferedReader(new InputStreamReader(Resources.class.getResourceAsStream(filename), StandardCharsets.UTF_8));
+		try {
+			while (true) {
+				String line = in.readLine();
+				if (line == null) {
+					break;
+				}
+				buffer.append(line + CR);
+			}
+		} catch (IOException e) {
+			// ignore
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e2) {
+					// ignore
+				}
+			}
+		}
+		return buffer.toString();
+	}
+
+	private Resources() {
+		// can't be instantiated
+	}
+}

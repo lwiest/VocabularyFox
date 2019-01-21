@@ -1,0 +1,13 @@
+﻿@Key=EN0101
+@Unit=Test Sample
+@Title=Test Sample
+@SourceLanguage=DE
+@TargetLanguage=EN
+to help sb. | jmd. helfen
+to meet somebody | jdn. treffen
+dog | Hund
+cat | Katze
+mouse | Maus
+he | er
+she | sie
+
