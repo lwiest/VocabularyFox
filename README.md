@@ -58,11 +58,11 @@ This is a sample of a French quiz:
 
 <img src="pics/pic06.png"/>
 
-(French quizzes only) To enter French text with a non-French keyboard, click this button (1). This opens a list of French characters. Select one of the characters to insert it into you answer.
+_(French quizzes only)_ To enter French text with a non-French keyboard, click this button (1). This opens a list of French characters. Select one of the characters to insert it into you answer.
 
 <img src="pics/pic07.png"/>
 
-(French quizzes only) These buttons (2) appear with French nouns whose article doesn’t indicate the gender. After typing the answer, click either the "m." (masculine) of "f." (feminine) button to continue with the next question.
+_(French quizzes only)_ These buttons (2) appear with French nouns whose article doesn’t indicate the gender. After typing the answer, click either the "m." (masculine) of "f." (feminine) button to continue with the next question.
 
 <img src="pics/pic08.png"/>
 
