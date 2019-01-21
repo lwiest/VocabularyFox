@@ -1,13 +1,14 @@
-﻿@Key=EN0101
-@Unit=Test Sample
-@Title=Test Sample
-@SourceLanguage=DE
-@TargetLanguage=EN
-to help sb. | jmd. helfen
-to meet somebody | jdn. treffen
-dog | Hund
-cat | Katze
-mouse | Maus
-he | er
-she | sie
-
+﻿@Key=FR01
+@Unit=Unité 1
+@Title=À l'opéra
+@SourceLanguage=EN
+@TargetLanguage=FR
+Bienvenue! | Welcome!
+aller à l'opéra | to go to the opera
+l'orchestre @M@ | the orchestra
+jouer de qc | to play sth. _(instrument)_
+jouer à qc | to play sth. _(game)_
+le piano | the piano
+le violon | the violin
+le chanteur | the singer _(m.)_
+la chanteuse | the singer _(f.)_
