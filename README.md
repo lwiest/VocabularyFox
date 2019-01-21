@@ -28,9 +28,10 @@ I have prepared for you a ready-to-run VocabularyFox file for the Windows (64-bi
 2. Extract the file `VocabularyFoxReadyToRun.zip`.
 3. Double-click the file `VocabularyFox.exe`.
 
-INFO
-The file `VocabularyFox.exe` contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn’t find one, then it uses the OpenJDK Java Runtime in the extracted `jre` folder. If a Java Runtime is installed on your system, you can delete the `jre` folder.
+**INFO**: The file `VocabularyFox.exe` contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn’t find one, then it uses the OpenJDK Java Runtime in the extracted `jre` folder. If a Java Runtime is installed on your system, you can delete the `jre` folder.
+
 The file `VocabularyFox.exe` was created with Launch4J.
+
 Both Launch4J and OpenJDK are open-source software.
 
 ## Visual Tour
@@ -41,8 +42,7 @@ Select a quiz from the list. Use the input field to find a quiz if the list is l
 
 <img src="pics/pic01.png"/>
 
-INFO
-VocabularyFox quizzes are located in the `quizzes` folder. If no such folder exists, then VocabularyFox creates a `quizzes` folder with a sample quiz.
+**INFO**: VocabularyFox quizzes are located in the `quizzes` folder. If no such folder exists, then VocabularyFox creates a `quizzes` folder with a sample quiz.
 
 To select quiz options, click the cogwheel icon <img src="pics/pic02.png"/>. This opens the preferences dialog. It displays the version number, lets you change the language of the user interface (currently English and German), and lets you modify quiz options:
 
