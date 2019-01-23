@@ -83,5 +83,4 @@ public class Utils {
 			shiftRight -= 6;
 		}
 	}
-
 }

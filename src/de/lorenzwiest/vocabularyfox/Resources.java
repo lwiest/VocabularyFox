@@ -26,6 +26,7 @@ package de.lorenzwiest.vocabularyfox;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -33,7 +34,6 @@ import java.util.Map;
 
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.FontRegistry;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -51,6 +51,7 @@ public class Resources {
 	public static final String PREFS_FILENAME = ".preferences_vocabularyfox";
 	public static final String QUIZ_FOLDERNAME = "quizzes";
 	public static final String SAMPLE_QUIZ_FILENAME = "sample_quiz.txt";
+	public static final String SAMPLE_QUIZ_SOURCEPATH = "samples/sample_quiz.txt";
 
 	private static FontRegistry FONT_REGISTRY;
 
@@ -122,21 +123,21 @@ public class Resources {
 	public static final String IMG_FOX48x48 = "icons/icon_fox48x48.png";
 
 	static {
-		IMAGE_REGISTRY.put(IMG_SPACER, ImageDescriptor.createFromFile(Resources.class, IMG_SPACER).createImage());
-		IMAGE_REGISTRY.put(IMG_COG_WHEEL, ImageDescriptor.createFromFile(Resources.class, IMG_COG_WHEEL).createImage());
-		IMAGE_REGISTRY.put(IMG_COG_WHEEL_CLICK, ImageDescriptor.createFromFile(Resources.class, IMG_COG_WHEEL_CLICK).createImage());
-		IMAGE_REGISTRY.put(IMG_COG_WHEEL_HOVER, ImageDescriptor.createFromFile(Resources.class, IMG_COG_WHEEL_HOVER).createImage());
-		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE, ImageDescriptor.createFromFile(Resources.class, IMG_DOWNLOAD_PAGE).createImage());
-		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_CLICK, ImageDescriptor.createFromFile(Resources.class, IMG_DOWNLOAD_PAGE_CLICK).createImage());
-		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_HOVER, ImageDescriptor.createFromFile(Resources.class, IMG_DOWNLOAD_PAGE_HOVER).createImage());
-		IMAGE_REGISTRY.put(IMG_CLEAR_ENABLED, ImageDescriptor.createFromFile(Resources.class, IMG_CLEAR_ENABLED).createImage());
-		IMAGE_REGISTRY.put(IMG_FRENCH15x15, ImageDescriptor.createFromFile(Resources.class, IMG_FRENCH15x15).createImage());
-		IMAGE_REGISTRY.put(IMG_ENGLISH15x15, ImageDescriptor.createFromFile(Resources.class, IMG_ENGLISH15x15).createImage());
-		IMAGE_REGISTRY.put(IMG_FRENCH16x16, ImageDescriptor.createFromFile(Resources.class, IMG_FRENCH16x16).createImage());
-		IMAGE_REGISTRY.put(IMG_ENGLISH16x16, ImageDescriptor.createFromFile(Resources.class, IMG_ENGLISH16x16).createImage());
-		IMAGE_REGISTRY.put(IMG_FOX16x16, ImageDescriptor.createFromFile(Resources.class, IMG_FOX16x16).createImage());
-		IMAGE_REGISTRY.put(IMG_FOX32x32, ImageDescriptor.createFromFile(Resources.class, IMG_FOX32x32).createImage());
-		IMAGE_REGISTRY.put(IMG_FOX48x48, ImageDescriptor.createFromFile(Resources.class, IMG_FOX48x48).createImage());
+		IMAGE_REGISTRY.put(IMG_SPACER, Resources.readImage(IMG_SPACER));
+		IMAGE_REGISTRY.put(IMG_COG_WHEEL, Resources.readImage(IMG_COG_WHEEL));
+		IMAGE_REGISTRY.put(IMG_COG_WHEEL_CLICK, Resources.readImage(IMG_COG_WHEEL_CLICK));
+		IMAGE_REGISTRY.put(IMG_COG_WHEEL_HOVER, Resources.readImage(IMG_COG_WHEEL_HOVER));
+		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE, Resources.readImage(IMG_DOWNLOAD_PAGE));
+		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_CLICK, Resources.readImage(IMG_DOWNLOAD_PAGE_CLICK));
+		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_HOVER, Resources.readImage(IMG_DOWNLOAD_PAGE_HOVER));
+		IMAGE_REGISTRY.put(IMG_CLEAR_ENABLED, Resources.readImage(IMG_CLEAR_ENABLED));
+		IMAGE_REGISTRY.put(IMG_FRENCH15x15, Resources.readImage(IMG_FRENCH15x15));
+		IMAGE_REGISTRY.put(IMG_ENGLISH15x15, Resources.readImage(IMG_ENGLISH15x15));
+		IMAGE_REGISTRY.put(IMG_FRENCH16x16, Resources.readImage(IMG_FRENCH16x16));
+		IMAGE_REGISTRY.put(IMG_ENGLISH16x16, Resources.readImage(IMG_ENGLISH16x16));
+		IMAGE_REGISTRY.put(IMG_FOX16x16, Resources.readImage(IMG_FOX16x16));
+		IMAGE_REGISTRY.put(IMG_FOX32x32, Resources.readImage(IMG_FOX32x32));
+		IMAGE_REGISTRY.put(IMG_FOX48x48, Resources.readImage(IMG_FOX48x48));
 
 		COLOR_REGISTRY = new ColorRegistry(Display.getCurrent());
 		COLOR_REGISTRY.put(COLOR_WHITE, new RGB(255, 255, 255));
@@ -144,8 +145,6 @@ public class Resources {
 		COLOR_REGISTRY.put(COLOR_BLACK, new RGB(0, 0, 0));
 		COLOR_REGISTRY.put(COLOR_RED, new RGB(220, 57, 18));
 		COLOR_REGISTRY.put(COLOR_ORANGE, new RGB(255, 153, 0));
-		//		COLOR_REGISTRY.put(COLOR_M, new RGB(51, 102, 204));
-		//		COLOR_REGISTRY.put(COLOR_F, new RGB(153, 0, 153));
 
 		COLOR_REGISTRY.put(COLOR_M, new RGB(51, 102, 204));
 		COLOR_REGISTRY.put(COLOR_M_HOVER, new RGB(85, 140, 252));
@@ -282,9 +281,11 @@ public class Resources {
 		}
 	}
 
-	public static String readTextFileAsResource(String filename) {
+	public static String readTextFile(String filepath) {
 		StringBuffer buffer = new StringBuffer();
-		BufferedReader in = new BufferedReader(new InputStreamReader(Resources.class.getResourceAsStream(filename), StandardCharsets.UTF_8));
+
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(filepath);
+		BufferedReader in = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 		try {
 			while (true) {
 				String line = in.readLine();
@@ -305,6 +306,12 @@ public class Resources {
 			}
 		}
 		return buffer.toString();
+	}
+
+	private static Image readImage(String filepath) {
+		InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream(filepath);
+		Image image = new Image(Display.getCurrent(), stream);
+		return image;
 	}
 
 	private Resources() {

@@ -286,9 +286,8 @@ public class Page1 extends WizardPage {
 
 		File[] quizFiles = quizFolder.listFiles();
 		if ((quizFiles != null) && (quizFiles.length == 0)) {
-			String textFile = Resources.readTextFileAsResource(Resources.SAMPLE_QUIZ_FILENAME);
+			String textFile = Resources.readTextFile(Resources.SAMPLE_QUIZ_SOURCEPATH);
 			Path dstSampleQuizFile = new File(quizFolder, Resources.SAMPLE_QUIZ_FILENAME).toPath();
-			System.out.println("dst> " + dstSampleQuizFile.toAbsolutePath());
 			try {
 				List<String> dummy = new ArrayList<String>();
 				dummy.add(textFile);
