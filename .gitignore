@@ -1,5 +1,4 @@
-/bin/
-
-/internal/
-/quizzes/
+bin/
+internal/
+quizzes/
 .preferences_vocabularyfox
