@@ -2,7 +2,7 @@
 
 VocabularyFox is an open-source vocabulary quiz program, written in Java.
 
-VocabularyFox
+VocabularyFox:
 * Supports (but is not limited to) English and French vocabulary quizzes
 * Lets you add your own vocabulary quizzes easily
 * Includes a sample vocabulary quiz
