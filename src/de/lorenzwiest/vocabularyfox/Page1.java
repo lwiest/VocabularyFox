@@ -338,9 +338,9 @@ public class Page1 extends WizardPage {
 
 		this.ibtnPreferences = new ImageButton(compButtons, SWT.NONE);
 		GridDataFactory.swtDefaults().align(SWT.LEFT, SWT.CENTER).applyTo(this.ibtnPreferences);
-		this.ibtnPreferences.setImage(Resources.getImage(Resources.IMG_COG_WHEEL));
-		this.ibtnPreferences.setClickImage(Resources.getImage(Resources.IMG_COG_WHEEL_CLICK));
-		this.ibtnPreferences.setHoverImage(Resources.getImage(Resources.IMG_COG_WHEEL_HOVER));
+		this.ibtnPreferences.setImage(Resources.getImage(Resources.IMG_GEAR));
+		this.ibtnPreferences.setClickImage(Resources.getImage(Resources.IMG_GEAR_CLICK));
+		this.ibtnPreferences.setHoverImage(Resources.getImage(Resources.IMG_GEAR_HOVER));
 		this.ibtnPreferences.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {

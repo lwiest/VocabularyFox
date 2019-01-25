@@ -107,9 +107,9 @@ public class Resources {
 	private static final Map<String, Image> IMAGE_REGISTRY = new HashMap<String, Image>();
 
 	public static final String IMG_SPACER = "icons/icon_spacer1x28.png";
-	public static final String IMG_COG_WHEEL = "icons/icon_cogwheel28x28.png";
-	public static final String IMG_COG_WHEEL_CLICK = "icons/icon_cogwheel28x28_click.png";
-	public static final String IMG_COG_WHEEL_HOVER = "icons/icon_cogwheel28x28_hover.png";
+	public static final String IMG_GEAR = "icons/icon_gear28x28.png";
+	public static final String IMG_GEAR_CLICK = "icons/icon_gear28x28_click.png";
+	public static final String IMG_GEAR_HOVER = "icons/icon_gear28x28_hover.png";
 	public static final String IMG_DOWNLOAD_PAGE = "icons/icon_downloadpage28x28.png";
 	public static final String IMG_DOWNLOAD_PAGE_CLICK = "icons/icon_downloadpage28x28_click.png";
 	public static final String IMG_DOWNLOAD_PAGE_HOVER = "icons/icon_downloadpage28x28_hover.png";
@@ -124,9 +124,9 @@ public class Resources {
 
 	static {
 		IMAGE_REGISTRY.put(IMG_SPACER, Resources.readImage(IMG_SPACER));
-		IMAGE_REGISTRY.put(IMG_COG_WHEEL, Resources.readImage(IMG_COG_WHEEL));
-		IMAGE_REGISTRY.put(IMG_COG_WHEEL_CLICK, Resources.readImage(IMG_COG_WHEEL_CLICK));
-		IMAGE_REGISTRY.put(IMG_COG_WHEEL_HOVER, Resources.readImage(IMG_COG_WHEEL_HOVER));
+		IMAGE_REGISTRY.put(IMG_GEAR, Resources.readImage(IMG_GEAR));
+		IMAGE_REGISTRY.put(IMG_GEAR_CLICK, Resources.readImage(IMG_GEAR_CLICK));
+		IMAGE_REGISTRY.put(IMG_GEAR_HOVER, Resources.readImage(IMG_GEAR_HOVER));
 		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE, Resources.readImage(IMG_DOWNLOAD_PAGE));
 		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_CLICK, Resources.readImage(IMG_DOWNLOAD_PAGE_CLICK));
 		IMAGE_REGISTRY.put(IMG_DOWNLOAD_PAGE_HOVER, Resources.readImage(IMG_DOWNLOAD_PAGE_HOVER));
