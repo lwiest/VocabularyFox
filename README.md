@@ -6,7 +6,9 @@ VocabularyFox
 * Supports (but is not limited to) English and French vocabulary quizzes
 * Lets you add your own vocabulary quizzes easily
 * Includes a sample vocabulary quiz
-* Lets you choose the language of the user interface (currently English and German, _if you like to contribute to adding another language, feel free to contact me at_ "lo (dot) wiest (at) web (dot) de").
+* Lets you choose the language of the user interface (currently English and German)
+
+  _If you like to contribute to adding another language, feel free to contact me at_ "lo (dot) wiest (at) web (dot) de".
 
 I developed VocabularyFox on Windows 8.1 (64-bit), but it should be easy to port it to other platforms.
 
