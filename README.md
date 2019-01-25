@@ -28,17 +28,13 @@ I have prepared for you a ready-to-run VocabularyFox file for the Windows (64-bi
 2. Extract the file `VocabularyFoxReadyToRun.zip`.
 3. Double-click the file `VocabularyFox.exe`.
 
-**INFO**: The file `VocabularyFox.exe` contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn’t find one, then it uses the OpenJDK Java Runtime in the extracted `jre` folder. If a Java Runtime is installed on your system, you can delete the `jre` folder.
-
-The file `VocabularyFox.exe` was created with Launch4J.
-
-Both Launch4J and OpenJDK are open-source software.
+**INFO**: The file `VocabularyFox.exe` contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn’t find one, then it uses the OpenJDK Java Runtime in the extracted `jre` folder. If a Java Runtime is installed on your system, you can delete the `jre` folder. The file `VocabularyFox.exe` was created with Launch4J. Both Launch4J and OpenJDK are open-source software.
 
 ## Visual Tour
 
 ### Selecting a Quiz
 
-Select a vocabulary quiz from the list. Use the input field to find a quiz if the list is long.
+Select a vocabulary quiz from the list.
 
 <img src="pics/pic01.png"/>
 
@@ -62,7 +58,7 @@ _(French quizzes only)_ To enter French text with a non-French keyboard, click b
 
 <img src="pics/pic07.png"/>
 
-_(French quizzes only)_ Buttons (2) appear with French nouns whose article doesn’t indicate the gender. After typing the answer, click either the "m." (masculine) of "f." (feminine) button to continue with the next question.
+_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn’t indicate the gender. After typing the answer, click either the "m." (masculine) of "f." (feminine) button to continue with the next question.
 
 <img src="pics/pic08.png"/>
 
@@ -72,15 +68,16 @@ After you have entered all answers, your results are listed:
 
 <img src="pics/pic09.png"/>
 
-The results are color-coded as follows: 
-* Blue: Noun of masculine gender
-* Dark red: Noun of feminine gender
+Your answers are are color-coded as follows: 
+* Black: Correct answer on your first try
 * Orange: Correct answer on your second try
 * Red: Correct answer on your third try - or no correct answer at all
+* Blue: Noun of masculine gender
+* Dark red: Noun of feminine gender
 
 To save your results as a web page to the file system, click on the download page icon <img src="pics/pic10.png"/>.
 
-If you want to repeat a quiz, you can repeat either the entire quiz or just the words with wrong answers:
+If you'd like to repeat a quiz, you can repeat either the entire quiz or just the words with wrong answers:
 
 <img src="pics/pic11.png"/>
 
