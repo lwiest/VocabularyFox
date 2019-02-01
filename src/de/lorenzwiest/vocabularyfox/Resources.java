@@ -55,6 +55,8 @@ public class Resources {
 
 	private static FontRegistry FONT_REGISTRY;
 
+	public static final String FONT_NAME = "Calibri";
+
 	public static final String FONT_TITLE = "font-title";
 	public static final String FONT_SEMI_TITLE = "font-semi-title";
 	public static final String FONT_SEMI_TITLE_BOLD = "font-semi-title-bold";
@@ -163,13 +165,13 @@ public class Resources {
 		COLOR_REGISTRY.put(COLOR_LIGHT_GREY, new RGB(172, 172, 172));
 
 		FONT_REGISTRY = new FontRegistry(Display.getCurrent());
-		FONT_REGISTRY.put(FONT_TITLE, new FontData[] { new FontData("Calibri", 30, SWT.NORMAL) });
-		FONT_REGISTRY.put(FONT_SEMI_TITLE, new FontData[] { new FontData("Calibri", 16, SWT.NORMAL) });
-		FONT_REGISTRY.put(FONT_SEMI_TITLE_BOLD, new FontData[] { new FontData("Calibri", 16, SWT.BOLD) });
-		FONT_REGISTRY.put(FONT_SEMI_TITLE_BOLD_ITALICS, new FontData[] { new FontData("Calibri", 16, SWT.BOLD | SWT.ITALIC) });
-		FONT_REGISTRY.put(FONT_DEFAULT, new FontData[] { new FontData("Calibri", 11, SWT.NORMAL) });
-		FONT_REGISTRY.put(FONT_DEFAULT_BOLD, new FontData[] { new FontData("Calibri", 11, SWT.BOLD) });
-		FONT_REGISTRY.put(FONT_LETTER_PICKER, new FontData[] { new FontData("Calibri", 20, SWT.BOLD) });
+		FONT_REGISTRY.put(FONT_TITLE, new FontData[] { new FontData(FONT_NAME, 30, SWT.NORMAL) });
+		FONT_REGISTRY.put(FONT_SEMI_TITLE, new FontData[] { new FontData(FONT_NAME, 16, SWT.NORMAL) });
+		FONT_REGISTRY.put(FONT_SEMI_TITLE_BOLD, new FontData[] { new FontData(FONT_NAME, 16, SWT.BOLD) });
+		FONT_REGISTRY.put(FONT_SEMI_TITLE_BOLD_ITALICS, new FontData[] { new FontData(FONT_NAME, 16, SWT.BOLD | SWT.ITALIC) });
+		FONT_REGISTRY.put(FONT_DEFAULT, new FontData[] { new FontData(FONT_NAME, 11, SWT.NORMAL) });
+		FONT_REGISTRY.put(FONT_DEFAULT_BOLD, new FontData[] { new FontData(FONT_NAME, 11, SWT.BOLD) });
+		FONT_REGISTRY.put(FONT_LETTER_PICKER, new FontData[] { new FontData(FONT_NAME, 20, SWT.BOLD) });
 
 		TS_TITLE = new TextStyle();
 		TS_TITLE.font = FONT_REGISTRY.get(FONT_TITLE);

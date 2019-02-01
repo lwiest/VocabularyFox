@@ -730,7 +730,7 @@ public class Page3 extends WizardPage {
 		appendLine(sb, "<head>");
 		appendLine(sb, "<meta charset=\"utf-8\">");
 		appendLine(sb, "<style>");
-		appendLine(sb, ".global { font-family: Calibri; }");
+		appendLine(sb, ".global { font-family: " + Resources.FONT_NAME + "; }");
 		appendLine(sb, ".center_outer { width: 100%; text-align: center; }");
 		appendLine(sb, ".center_inner { display: inline-block; }");
 		appendLine(sb, ".header { font-size: 145%; }");
