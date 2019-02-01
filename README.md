@@ -40,7 +40,7 @@ Select a vocabulary quiz from the list:
 
 <img src="pics/pic01.png"/>
 
-To select quiz options, click the gear icon <img src="pics/pic02.png"/>. This opens the preferences dialog. It displays the version number, lets you change the language of the user interface (currently English and German), and lets you modify quiz options:
+To select quiz options, click the gear icon <img src="pics/pic02.png"/>. This opens the Preferences dialog. It displays the version number, lets you change the language of the user interface (currently English and German), and lets you modify quiz options:
 
 <img src="pics/pic03.png"/>
 
@@ -58,7 +58,7 @@ _(French quizzes only)_ To enter French text with a non-French keyboard, click b
 
 <img src="pics/pic07.png"/>
 
-_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn't indicate the gender. After typing the answer, click either the "m." (masculine) of "f." (feminine) button to continue with the next word.
+_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn't indicate the gender. After typing the answer, click either the "m." (masculine) of "f." (feminine) button to define the gender, then continue with the next word.
 
 <img src="pics/pic08.png"/>
 
@@ -69,11 +69,11 @@ After you have entered all answers, your results are listed:
 <img src="pics/pic09.png"/>
 
 Your answers are are color-coded as follows: 
-* <span style="color: rgb(0, 0, 0)">Black</span>: Correct answer on your first try
-* <span style="color: rgb(255, 153, 0)">Orange</span>: Correct answer on your second try
-* <span style="color: rgb(220, 57, 18)">Red</span>: Correct answer on your third try - or no correct answer at all
-* <span style="color: rgb(51, 102, 204)">Blue</span>: Noun of masculine gender
-* <span style="color:rgb(184, 46, 46) ">Dark red</span>: Noun of feminine gender
+* Black: Correct answer on your first try
+* Orange: Correct answer on your second try
+* Red: Correct answer on your third try - or no correct answer at all
+* Blue: Noun of masculine gender
+* Dark red: Noun of feminine gender
 
 To save your results as a web page to the file system, click on the download page icon <img src="pics/pic10.png"/>.
 
@@ -91,7 +91,7 @@ It is easy to add your own quizzes to VocabularyFox!
 
 * The `VocabularyFox.exe` file contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn't find one, it uses the OpenJDK Java Runtime bundled with VocabularyFox. It is located in the `jre` folder of your extracted `VocabularyFoxReadyToRun.zip` file. If a Java Runtime is installed on your system, you can simply delete the `jre` folder. The file `VocabularyFox.exe` was created with Launch4J. Both Launch4J and OpenJDK are open-source software.
 * VocabularyFox looks for quizzes in the `quizzes` folder, which is located in the same folder as the `VocabularyFolder.exe` file. If no `quizzes` folder exists, then VocabularyFox creates a `quizzes` folder with a sample quiz.
-* VocabularyFox saves application preferences in the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFolder.exe` file. If you delete the file, it will be created the next time you run VocabularyFox.
+* VocabularyFox saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this file, it is automatically created by VocabularyFox.
 
 ## Build Instructions
 
@@ -120,5 +120,5 @@ It is easy to add your own quizzes to VocabularyFox!
 
 To port VocabularyFox to another platform, apply the following changes:
 
-1. Adjust the font name set to `Resources.FONT_NAME` (currently `Calibri`) to a font available on your platform.
+1. Adjust the font name set to `Resources.FONT_NAME` (currently `"Calibri"`) to a font available on your platform.
 2. Replace the SWT library `org.eclipse.swt.win32.win32.x86_64_XXX.jar` with the SWT library specific to your platform (Tip: The library name follows the pattern `org.eclipse.swt.<platform>_<version>.v<timestamp>.jar`.).
