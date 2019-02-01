@@ -69,11 +69,11 @@ After you have entered all answers, your results are listed:
 <img src="pics/pic09.png"/>
 
 Your answers are are color-coded as follows: 
-* <span style="color: rgb(0, 0, 0)">Black</style>: Correct answer on your first try
-* <span style="color: rgb(255, 153, 0)">Orange</style>: Correct answer on your second try
-* <span style="color: rgb(220, 57, 18)">Red</style>: Correct answer on your third try - or no correct answer at all
-* <span style="color: rgb(51, 102, 204)">Blue</style>: Noun of masculine gender
-* <span style="color:rgb(184, 46, 46) ">Dark red</style>: Noun of feminine gender
+* <span style="color: rgb(0, 0, 0)">Black</span>: Correct answer on your first try
+* <span style="color: rgb(255, 153, 0)">Orange</span>: Correct answer on your second try
+* <span style="color: rgb(220, 57, 18)">Red</span>: Correct answer on your third try - or no correct answer at all
+* <span style="color: rgb(51, 102, 204)">Blue</span>: Noun of masculine gender
+* <span style="color:rgb(184, 46, 46) ">Dark red</span>: Noun of feminine gender
 
 To save your results as a web page to the file system, click on the download page icon <img src="pics/pic10.png"/>.
 
