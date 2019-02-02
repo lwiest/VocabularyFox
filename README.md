@@ -84,8 +84,8 @@ If you'd like to repeat a quiz, you can repeat either the entire quiz or just th
 ## How to Add Your Own Quizzes
 
 It is easy to add your own quizzes to VocabularyFox!
-* See [instructions in English](doc/InstructionsEnglish.pdf).
-* See [instructions in German](doc/InstructionsGerman.pdf).
+* See [instructions in English](doc/VocabularyFox.Instructions.English.pdf).
+* See [instructions in German](doc/VocabularyFox.Instructions.German.pdf).
 
 ## Technical Footnotes
 
