@@ -263,6 +263,10 @@ public class Page1 extends WizardPage {
 
 		File[] quizFiles = quizFolder.listFiles();
 		for (File quizFile : quizFiles) {
+			if (quizFile.isDirectory()) {
+				continue;
+			}
+
 			Quiz quiz = Quiz.readQuiz(quizFile);
 
 			String key = quiz.getKey();
