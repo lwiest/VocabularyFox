@@ -24,7 +24,6 @@
 
 package de.lorenzwiest.vocabularyfox;
 
-// TODO Bug On startup, in prefs dialog the UI language is "German, but the dropdown says "English"
 // TODO LetterPicker: Meta keys should not close letter picker -> screenshots
 
 // LW 15-OCT-2018 Created
