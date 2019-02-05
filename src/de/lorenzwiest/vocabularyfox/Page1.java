@@ -198,7 +198,7 @@ public class Page1 extends WizardPage {
 		Table table = viewer.getTable();
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(table);
 
-		// TODO temporarily disabled - table.setHeaderVisible(true)
+		// TODO temporarily disabled
 		// table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
@@ -226,7 +226,7 @@ public class Page1 extends WizardPage {
 
 		populateTable(viewer);
 
-		// TODO temporarily disabled - autoSizeViewerColumns(viewer)
+		// TODO temporarily disabled
 		// autoSizeViewerColumns(viewer);
 
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {

@@ -108,7 +108,7 @@ public class I18N {
 	}
 
 	static {
-		setLocale(getDefaultLocale());
+		setLocale(PreferencesDialog.getDefaultPreferenceLocale());
 	}
 
 	public static Locale getDefaultLocale() {
