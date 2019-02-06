@@ -24,8 +24,6 @@
 
 package de.lorenzwiest.vocabularyfox;
 
-// TODO LetterPicker: Meta keys should not close letter picker -> screenshots
-
 // LW 15-OCT-2018 Created
 
 import org.eclipse.jface.window.ApplicationWindow;

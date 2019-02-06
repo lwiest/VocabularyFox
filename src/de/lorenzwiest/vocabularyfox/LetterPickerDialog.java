@@ -180,6 +180,10 @@ public class LetterPickerDialog extends Dialog {
 		letterIconTable.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
+				if ((e.keyCode & (SWT.SHIFT | SWT.ALT | SWT.CTRL)) > 0) {
+					return;
+				}
+
 				e.doit = false;
 				tableSelected(null);
 			}

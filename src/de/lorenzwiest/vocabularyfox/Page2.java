@@ -268,7 +268,13 @@ public class Page2 extends WizardPage {
 		GridDataFactory.swtDefaults().hint(indent, SWT.DEFAULT).applyTo(lblHorizontalSpacer);
 	}
 
+	private boolean isLetterPickerDialogOpen = false;
+
 	private void letterPickerClicked() {
+		if (this.isLetterPickerDialogOpen) {
+			return;
+		}
+
 		Shell shell = Display.getCurrent().getActiveShell();
 		LetterPickerDialog dialog = new LetterPickerDialog(shell);
 		dialog.create();
@@ -291,11 +297,12 @@ public class Page2 extends WizardPage {
 
 		this.btnNext.setEnabled(false);
 		this.btnPrevious.setEnabled(false);
+		this.isLetterPickerDialogOpen = true;
 
 		dialog.open();
 
 		// TODO: Click the window's close box to crash the app
-
+		this.isLetterPickerDialogOpen = false;
 		this.btnNext.setEnabled(isBtnNextEnabled);
 		this.btnPrevious.setEnabled(isBtnPreviousEnabled);
 
@@ -498,6 +505,10 @@ public class Page2 extends WizardPage {
 				this.txtAnswer.addFocusListener(this.disableFocus);
 				this.txtAnswer.setForeground(Resources.getColor(Resources.COLOR_RED));
 
+				this.lblLetterPicker.setVisible(false);
+				this.lblM.setVisible(false);
+				this.lblF.setVisible(false);
+
 				this.triesCount++;
 				return;
 			}
@@ -557,6 +568,9 @@ public class Page2 extends WizardPage {
 			question.setActualGender(Gender.INITIAL);
 			startPulsing();
 		}
+
+		boolean isLetterPickerVisible = (quiz.getTargetLanguage() == Language.FR);
+		this.lblLetterPicker.setVisible(isLetterPickerVisible);
 
 		this.txtAnswer.setFocus();
 		this.txtAnswer.setSelection(this.txtAnswer.getText().length());
@@ -624,9 +638,6 @@ public class Page2 extends WizardPage {
 			shell.setImage(Resources.getImage(Resources.IMG_FRENCH16x16));
 		}
 		shell.setText(quiz.getUnit());
-
-		boolean isLetterPickerVisible = (targetLanguage == Language.FR);
-		this.lblLetterPicker.setVisible(isLetterPickerVisible);
 
 		showNewQuestion();
 		showTipDialog();
