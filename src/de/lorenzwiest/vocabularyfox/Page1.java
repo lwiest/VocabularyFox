@@ -59,6 +59,8 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
@@ -157,6 +159,16 @@ public class Page1 extends WizardPage {
 			@Override
 			public void focusGained(FocusEvent e) {
 				searchTextFocusGained();
+			}
+		});
+		this.searchText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				boolean hasItems = Page1.this.viewer.getTable().getItemCount() > 0;
+				boolean isArrowDown = (e.keyCode == SWT.ARROW_DOWN);
+				if (hasItems && isArrowDown) {
+					Page1.this.viewer.getTable().setFocus();
+				}
 			}
 		});
 	}
