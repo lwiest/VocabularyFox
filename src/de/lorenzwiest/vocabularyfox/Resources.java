@@ -108,22 +108,22 @@ public class Resources {
 
 	private static final Map<String, Image> IMAGE_REGISTRY = new HashMap<String, Image>();
 
-	public static final String IMG_SPACER = "icons/icon_spacer1x28.png";
-	public static final String IMG_GEAR = "icons/icon_gear28x28.png";
-	public static final String IMG_GEAR_CLICK = "icons/icon_gear28x28_click.png";
-	public static final String IMG_GEAR_HOVER = "icons/icon_gear28x28_hover.png";
-	public static final String IMG_DOWNLOAD_PAGE = "icons/icon_downloadpage28x28.png";
-	public static final String IMG_DOWNLOAD_PAGE_CLICK = "icons/icon_downloadpage28x28_click.png";
-	public static final String IMG_DOWNLOAD_PAGE_HOVER = "icons/icon_downloadpage28x28_hover.png";
-	public static final String IMG_CLEAR_ENABLED = "icons/icon_clear_enabled.gif";
-	public static final String IMG_ENGLISH15x15 = "icons/icon_english15x15.png";
-	public static final String IMG_FRENCH15x15 = "icons/icon_french15x15.png";
-	public static final String IMG_ENGLISH16x16 = "icons/icon_english16x16.png";
-	public static final String IMG_FRENCH16x16 = "icons/icon_french16x16.png";
-	public static final String IMG_FOLDER16x16 = "icons/icon_folder16x16.png";
-	public static final String IMG_FOX16x16 = "icons/icon_fox16x16.png";
-	public static final String IMG_FOX32x32 = "icons/icon_fox32x32.png";
-	public static final String IMG_FOX48x48 = "icons/icon_fox48x48.png";
+	public static final String IMG_SPACER = "icons/spacer1x28.png";
+	public static final String IMG_GEAR = "icons/gear28x28.png";
+	public static final String IMG_GEAR_CLICK = "icons/gear28x28_click.png";
+	public static final String IMG_GEAR_HOVER = "icons/gear28x28_hover.png";
+	public static final String IMG_DOWNLOAD_PAGE = "icons/downloadpage28x28.png";
+	public static final String IMG_DOWNLOAD_PAGE_CLICK = "icons/downloadpage28x28_click.png";
+	public static final String IMG_DOWNLOAD_PAGE_HOVER = "icons/downloadpage28x28_hover.png";
+	public static final String IMG_CLEAR_ENABLED = "icons/clear_enabled.gif";
+	public static final String IMG_ENGLISH15x15 = "icons/english15x15.png";
+	public static final String IMG_FRENCH15x15 = "icons/french15x15.png";
+	public static final String IMG_ENGLISH16x16 = "icons/english16x16.png";
+	public static final String IMG_FRENCH16x16 = "icons/french16x16.png";
+	public static final String IMG_FOLDER16x16 = "icons/folder16x16.png";
+	public static final String IMG_FOX16x16 = "icons/fox16x16.png";
+	public static final String IMG_FOX32x32 = "icons/fox32x32.png";
+	public static final String IMG_FOX48x48 = "icons/fox48x48.png";
 
 	static {
 		IMAGE_REGISTRY.put(IMG_SPACER, Resources.readImage(IMG_SPACER));
