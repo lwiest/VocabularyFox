@@ -126,10 +126,13 @@ public class Quiz {
 
 				if (line.startsWith(ATTRIB_KEY)) {
 					key = line.substring(ATTRIB_KEY.length()).trim();
+					continue;
 				} else if (line.startsWith(ATTRIB_TITLE)) {
 					title = line.substring(ATTRIB_TITLE.length()).trim();
+					continue;
 				} else if (line.startsWith(ATTRIB_UNIT)) {
 					unit = line.substring(ATTRIB_UNIT.length()).trim();
+					continue;
 				} else if (line.startsWith(ATTRIB_TARGET_LANGUAGE)) {
 					String strTargetLanguage = line.substring(ATTRIB_TARGET_LANGUAGE.length()).trim();
 					if (strTargetLanguage.equals(VALUE_EN)) {
@@ -137,6 +140,7 @@ public class Quiz {
 					} else if (strTargetLanguage.equals(VALUE_FR)) {
 						targetLanguage = Language.FR;
 					}
+					continue;
 				} else if (line.startsWith(ATTRIB_ATTRIB)) {
 					continue;
 				} else if (line.trim().isEmpty()) {

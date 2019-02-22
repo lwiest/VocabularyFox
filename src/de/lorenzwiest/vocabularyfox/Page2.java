@@ -227,6 +227,7 @@ public class Page2 extends WizardPage {
 		GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).applyTo(this.txtAnswer);
 		this.txtAnswer.setText("");
 		this.txtAnswer.setFont(Resources.getFont(Resources.FONT_SEMI_TITLE_BOLD));
+		this.txtAnswer.setTextLimit(100);
 
 		Label lblHorizontalSpacer = new Label(composite, SWT.NONE);
 		lblHorizontalSpacer.setVisible(false);
@@ -301,7 +302,7 @@ public class Page2 extends WizardPage {
 
 		dialog.open();
 
-		// TODO: Click the window's close box to crash the app
+		// FIXME: Click the window's close box to crash the program
 		this.isLetterPickerDialogOpen = false;
 		this.btnNext.setEnabled(isBtnNextEnabled);
 		this.btnPrevious.setEnabled(isBtnPreviousEnabled);
@@ -445,14 +446,14 @@ public class Page2 extends WizardPage {
 					continue;
 				}
 				Question questionToCompare = questions.get(i);
-				String tmpExpectedAnswerToCompare = replaceAbbreviations(question.getExpectedAnswer(), targetLanguage); // TODO: lots of abbreviation replacements. Cache them?
+				String tmpExpectedAnswerToCompare = replaceAbbreviations(question.getExpectedAnswer(), targetLanguage); // TODO: Lots of abbreviation replacements. Cache them?
 				if (strQuestion.equals(questionToCompare.getQuestion()) && answer.equals(tmpExpectedAnswerToCompare)) {
 					existsQuestionDouble = true;
 					break;
 				}
 			}
 			if (existsQuestionDouble) {
-				// TODO: "Weiter" button is enabled, but nothing happens when you click it!
+				// FIXME: "Next" button is enabled, but nothing happens when you click it!
 				this.slblRightOrWrong.setStyledText(I18N.getString(I18N.CORRECT_BUT_DIFFERENT_WORD));
 				this.slblRightOrWrong.getParent().layout(true, true);
 				this.txtAnswer.setFocus();

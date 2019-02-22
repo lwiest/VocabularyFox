@@ -120,6 +120,7 @@ public class Resources {
 	public static final String IMG_FRENCH15x15 = "icons/icon_french15x15.png";
 	public static final String IMG_ENGLISH16x16 = "icons/icon_english16x16.png";
 	public static final String IMG_FRENCH16x16 = "icons/icon_french16x16.png";
+	public static final String IMG_FOLDER16x16 = "icons/icon_folder16x16.png";
 	public static final String IMG_FOX16x16 = "icons/icon_fox16x16.png";
 	public static final String IMG_FOX32x32 = "icons/icon_fox32x32.png";
 	public static final String IMG_FOX48x48 = "icons/icon_fox48x48.png";
@@ -137,6 +138,7 @@ public class Resources {
 		IMAGE_REGISTRY.put(IMG_ENGLISH15x15, Resources.readImage(IMG_ENGLISH15x15));
 		IMAGE_REGISTRY.put(IMG_FRENCH16x16, Resources.readImage(IMG_FRENCH16x16));
 		IMAGE_REGISTRY.put(IMG_ENGLISH16x16, Resources.readImage(IMG_ENGLISH16x16));
+		IMAGE_REGISTRY.put(IMG_FOLDER16x16, Resources.readImage(IMG_FOLDER16x16));
 		IMAGE_REGISTRY.put(IMG_FOX16x16, Resources.readImage(IMG_FOX16x16));
 		IMAGE_REGISTRY.put(IMG_FOX32x32, Resources.readImage(IMG_FOX32x32));
 		IMAGE_REGISTRY.put(IMG_FOX48x48, Resources.readImage(IMG_FOX48x48));

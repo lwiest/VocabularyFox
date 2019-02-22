@@ -1,5 +1,5 @@
 ﻿@Key=FR01
-@Unit=Unité 1
+@Unit=Bonjour!|Unité 1
 @Title=À l'opéra
 @SourceLanguage=EN
 @TargetLanguage=FR

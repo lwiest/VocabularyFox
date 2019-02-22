@@ -30,31 +30,29 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ColumnPixelData;
-import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.StyledString.Styler;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -76,9 +74,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
 public class Page1 extends WizardPage {
 	private StyledLabel slblHeader;
@@ -86,11 +84,10 @@ public class Page1 extends WizardPage {
 	private Text searchText;
 	private Label searchTextIcon;
 
-	private TableViewer viewer;
-	private TableColumn tableColumn1;
-	private TableColumn tableColumn2;
+	private TreeViewer viewer;
+	private TreeNode selectedTreeNode;
 
-	private TableElement selectedTableElement;
+	private NodeMatcher nodeMatcher;
 
 	private Button btnNext;
 	private ImageButton ibtnPreferences;
@@ -121,7 +118,7 @@ public class Page1 extends WizardPage {
 
 		createBlankLabel(composite);
 		createSearch(composite);
-		this.viewer = createTable(composite);
+		this.viewer = createTree(composite);
 	}
 
 	private void createBlankLabel(Composite composite) {
@@ -137,6 +134,7 @@ public class Page1 extends WizardPage {
 		this.searchText = new Text(composite, SWT.SINGLE);
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.searchText);
 		this.searchText.setFont(Resources.getFont(Resources.FONT_DEFAULT));
+		this.searchText.setTextLimit(100);
 
 		this.searchTextIcon = new Label(composite, SWT.NULL);
 		GridDataFactory.swtDefaults().align(SWT.END, SWT.CENTER).applyTo(this.searchTextIcon);
@@ -164,11 +162,7 @@ public class Page1 extends WizardPage {
 		this.searchText.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				boolean hasItems = Page1.this.viewer.getTable().getItemCount() > 0;
-				boolean isArrowDown = (e.keyCode == SWT.ARROW_DOWN);
-				if (hasItems && isArrowDown) {
-					Page1.this.viewer.getTable().setFocus();
-				}
+				searchTextKeyPresed(e);
 			}
 		});
 	}
@@ -181,16 +175,24 @@ public class Page1 extends WizardPage {
 		boolean isIconEnabled = this.searchText.getText().length() > 0;
 		this.searchTextIcon.setVisible(isIconEnabled);
 
-		String patternText = toLowerCasePlainText(this.searchText.getText().toLowerCase());
-		this.elementMatcher.setPattern(patternText);
-		this.viewer.refresh();
+		String patternText = toLowerCasePlainText(this.searchText.getText().trim().toLowerCase());
+		this.nodeMatcher.setPattern(patternText);
 
-		boolean isEnabled = this.viewer.getTable().getItemCount() > 0;
-		this.btnNext.setEnabled(isEnabled);
-		if (isEnabled) {
-			this.viewer.getTable().select(0);
-			this.selectedTableElement = (TableElement) this.viewer.getStructuredSelection().getFirstElement();
+		if (patternText.isEmpty()) {
+			this.viewer.setAutoExpandLevel(0);
+			this.viewer.setSelection(null);
+		} else {
+			this.viewer.setAutoExpandLevel(AbstractTreeViewer.ALL_LEVELS);
 		}
+
+		this.viewer.setInput(this.viewer.getInput());
+
+		if (patternText.isEmpty() == false) {
+			selectFirstLeaf();
+		}
+
+		boolean isEnabled = isLeafSelected();
+		this.btnNext.setEnabled(isEnabled);
 	}
 
 	private void searchTextFocusGained() {
@@ -200,75 +202,107 @@ public class Page1 extends WizardPage {
 		}
 	}
 
-	private TableViewer createTable(Composite parent) {
+	private void searchTextKeyPresed(KeyEvent e) {
+		boolean hasItems = this.viewer.getTree().getItemCount() > 0;
+		boolean isArrowDown = (e.keyCode == SWT.ARROW_DOWN);
+		if (hasItems && isArrowDown) {
+			this.viewer.getTree().setFocus();
+		}
+	}
+
+	private TreeViewer createTree(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
-		TableColumnLayout tableColumnLayout = new TableColumnLayout();
-
-		composite.setLayout(tableColumnLayout);
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(composite);
-		final TableViewer viewer = new TableViewer(composite, SWT.BORDER | SWT.SINGLE | SWT.FULL_SELECTION);
-		Table table = viewer.getTable();
-		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(table);
+		GridLayoutFactory.swtDefaults().numColumns(1).margins(0, 0).applyTo(composite);
 
-		// TODO temporarily disabled
-		// table.setHeaderVisible(true);
-		table.setLinesVisible(true);
+		final TreeViewer viewer = new TreeViewer(composite, SWT.BORDER | SWT.SINGLE | SWT.FULL_SELECTION);
+		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(viewer.getTree());
 
-		TableColumn tableColumn0 = new TableColumn(table, SWT.LEFT);
-		tableColumn0.setResizable(false);
-		tableColumnLayout.setColumnData(tableColumn0, new ColumnPixelData(24));
-		TableViewerColumn tbvColumn0 = new TableViewerColumn(viewer, tableColumn0);
-		tbvColumn0.setLabelProvider(new DelegatingStyledCellLabelProvider(new StyledLabelProvider(this.elementMatcher, 0)));
+		viewer.setAutoExpandLevel(0);
 
-		this.tableColumn1 = new TableColumn(table, SWT.LEFT);
-		this.tableColumn1.setResizable(true);
-		tableColumnLayout.setColumnData(this.tableColumn1, new ColumnWeightData(1));
-		TableViewerColumn tbvColumn1 = new TableViewerColumn(viewer, this.tableColumn1);
-		tbvColumn1.setLabelProvider(new DelegatingStyledCellLabelProvider(new StyledLabelProvider(this.elementMatcher, 1)));
+		this.nodeMatcher = new NodeMatcher();
+		viewer.setLabelProvider(new DelegatingStyledCellLabelProvider(new FilteredTreeLabelProvider(this.nodeMatcher)));
+		viewer.setContentProvider(new FilteredTreeContentProvider());
+		viewer.setFilters(new ViewerFilter[] { new FilteredTreeViewerFilter(this.nodeMatcher) });
 
-		this.tableColumn2 = new TableColumn(table, SWT.LEFT);
-		this.tableColumn2.setResizable(true);
-		tableColumnLayout.setColumnData(this.tableColumn2, new ColumnWeightData(1));
-		TableViewerColumn tbvColumn2 = new TableViewerColumn(viewer, this.tableColumn2);
-		tbvColumn2.setLabelProvider(new DelegatingStyledCellLabelProvider(new StyledLabelProvider(this.elementMatcher, 2)));
-
-		viewer.setContentProvider(new ArrayContentProvider());
-		viewer.setFilters(new ViewerFilter[] { new TableViewerFilter(this.elementMatcher) });
-		viewer.setComparator(new TableViewerSorter());
-
-		populateTable(viewer);
-
-		// TODO temporarily disabled
-		// autoSizeViewerColumns(viewer);
+		populateTree(viewer);
 
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				Page1.this.selectedTableElement = (TableElement) viewer.getStructuredSelection().getFirstElement();
+				Page1.this.selectedTreeNode = (TreeNode) viewer.getStructuredSelection().getFirstElement();
+				boolean isEnabled = isLeafSelected();
+				Page1.this.btnNext.setEnabled(isEnabled);
 			}
 		});
+
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
-				Page1.this.selectedTableElement = (TableElement) viewer.getStructuredSelection().getFirstElement();
-				nextButtonSelected();
+				Page1.this.selectedTreeNode = (TreeNode) viewer.getStructuredSelection().getFirstElement();
+				if (isLeafSelected()) {
+					nextButtonSelected();
+				}
 			}
 		});
 
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				viewer.getTable().setSelection(0);
-				Page1.this.selectedTableElement = (TableElement) viewer.getStructuredSelection().getFirstElement();
-				viewer.getTable().setFocus();
+				viewer.getTree().setFocus();
 			}
 		});
 
 		return viewer;
 	}
 
-	private void populateTable(TableViewer viewer) {
-		List<TableElement> tableElements = new ArrayList<TableElement>();
+	private boolean isLeafSelected() {
+		boolean isLeafSelected = (Page1.this.selectedTreeNode != null) && (Page1.this.selectedTreeNode.hasChildren() == false);
+		return isLeafSelected;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	private static class QuizInfo {
+		String key;
+		String path;
+		Language targetLanguage;
+		File file;
+
+		public QuizInfo(String key, String unit, String title, Language targetLanguage, File file) {
+			this.key = key;
+			this.path = unit + " - " + title;
+			this.targetLanguage = targetLanguage;
+			this.file = file;
+		}
+
+		public String getKey() {
+			return this.key;
+		}
+
+		public String getPath() {
+			return this.path;
+		}
+
+		public Language getTargetLanguage() {
+			return this.targetLanguage;
+		}
+
+		public File getFile() {
+			return this.file;
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	private void populateTree(TreeViewer viewer) {
+		List<QuizInfo> quizInfos = createQuizList();
+		TreeNode[] rootNodes = createTreeNodes(quizInfos);
+		viewer.setInput(rootNodes);
+	}
+
+	private List<QuizInfo> createQuizList() {
+		List<QuizInfo> quizInfos = new ArrayList<QuizInfo>();
 
 		File quizFolder = new File(Resources.QUIZ_FOLDERNAME);
 		ensureQuizFolderExists(quizFolder);
@@ -280,19 +314,23 @@ public class Page1 extends WizardPage {
 			}
 
 			Quiz quiz = Quiz.readQuiz(quizFile);
-
 			String key = quiz.getKey();
 			String title = quiz.getTitle();
 			String unit = quiz.getUnit();
 			Language targetLanguage = quiz.getTargetLanguage();
 
 			if ((key != null) && (title != null) && (unit != null) && (targetLanguage != null)) {
-				TableElement tableElement = new TableElement(key, targetLanguage, unit, title, quizFile);
-				tableElements.add(tableElement);
+				quizInfos.add(new QuizInfo(key, unit, title, targetLanguage, quizFile));
 			}
 		}
 
-		viewer.setInput(tableElements);
+		quizInfos.sort(new Comparator<QuizInfo>() {
+			@Override
+			public int compare(QuizInfo quizInfo1, QuizInfo quizInfo2) {
+				return quizInfo1.getKey().compareTo(quizInfo2.getKey());
+			}
+		});
+		return quizInfos;
 	}
 
 	private void ensureQuizFolderExists(File quizFolder) {
@@ -314,34 +352,76 @@ public class Page1 extends WizardPage {
 		}
 	}
 
-	//	private void autoSizeViewerColumns(final TableViewer viewer) {
-	//		Display.getDefault().asyncExec(new Runnable() {
-	//			@Override
-	//			public void run() {
-	//				Table table = viewer.getTable();
-	//				table.setRedraw(false);
-	//
-	//				for (int col = 0; col < table.getColumnCount(); col++) {
-	//					TableColumn tableColumn = table.getColumn(col);
-	//					if (tableColumn.getResizable()) {
-	//						tableColumn.pack();
-	//					}
-	//				}
-	//
-	//				int tableWidth = table.getClientArea().width;
-	//				int totalColumnWidth = 0;
-	//				for (int col = 0; col < table.getColumnCount(); col++) {
-	//					totalColumnWidth += table.getColumn(col).getWidth();
-	//				}
-	//				int lastColumnIndex = table.getColumnCount() - 1;
-	//				int lastColumnWidth = table.getColumn(lastColumnIndex).getWidth();
-	//				int newLastColumnWidth = lastColumnWidth + (tableWidth - totalColumnWidth);
-	//				table.getColumn(lastColumnIndex).setWidth(newLastColumnWidth);
-	//
-	//				table.setRedraw(true);
-	//			}
-	//		});
-	//	}
+	private static TreeNode[] createTreeNodes(List<QuizInfo> quizInfos) {
+		TreeNode rootNode = new TreeNode("root", null, null);
+
+		for (QuizInfo quizInfo : quizInfos) {
+			String strPath = quizInfo.getPath();
+			List<String> pathElements = Arrays.asList(strPath.split("\\|"));
+			for (int i = 0; i < pathElements.size(); i++) {
+				pathElements.set(i, pathElements.get(i).trim());
+			}
+			recursivelyAddTreeNode(rootNode, pathElements.get(0), pathElements.subList(1, pathElements.size()), quizInfo);
+		}
+		return rootNode.getChildren();
+	}
+
+	private static void recursivelyAddTreeNode(TreeNode parentNode, String name, List<String> restNames, QuizInfo quizInfo) {
+		if (restNames.isEmpty()) {
+			Language targetLanguage = quizInfo.getTargetLanguage();
+			File file = quizInfo.getFile();
+			parentNode.addChild(new TreeNode(name, targetLanguage, file));
+			return;
+		}
+
+		TreeNode childFolderNode = null;
+		for (TreeNode node : parentNode.getChildren()) {
+			if (name.equals(node.getText())) {
+				childFolderNode = node;
+				break;
+			}
+		}
+		if (childFolderNode == null) {
+			childFolderNode = new TreeNode(name, null, null);
+			parentNode.addChild(childFolderNode);
+		}
+
+		recursivelyAddTreeNode(childFolderNode, restNames.get(0), restNames.subList(1, restNames.size()), quizInfo);
+	}
+
+	private void selectFirstLeaf() {
+		TreeItem firstLeafItem = getFirstLeaf(this.viewer.getTree());
+		if (firstLeafItem != null) {
+			this.viewer.getTree().setSelection(firstLeafItem);
+		} else {
+			this.viewer.getTree().setSelection(new TreeItem[] {});
+		}
+		this.viewer.setSelection(this.viewer.getSelection(), true);
+	}
+
+	private TreeItem getFirstLeaf(Tree tree) {
+		for (TreeItem rootItem : tree.getItems()) {
+			TreeItem childLeafItem = getChildLeafRecursively(rootItem);
+			if (childLeafItem != null) {
+				return childLeafItem;
+			}
+		}
+		return null;
+	}
+
+	private TreeItem getChildLeafRecursively(TreeItem treeItem) {
+		if (treeItem.getItemCount() == 0) {
+			return treeItem;
+		}
+
+		for (TreeItem childItem : treeItem.getItems()) {
+			TreeItem childLeafItem = getChildLeafRecursively(childItem);
+			if (childLeafItem != null) {
+				return childLeafItem;
+			}
+		}
+		return null;
+	}
 
 	public void createButtons(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -394,8 +474,12 @@ public class Page1 extends WizardPage {
 	}
 
 	private void nextButtonSelected() {
-		File quizFile = this.selectedTableElement.getFile();
+		File quizFile = this.selectedTreeNode.getFile();
 		Quiz quiz = Quiz.readQuiz(quizFile);
+
+		// HACK
+		quiz.setUnit(quiz.getUnit().replace("|", " "));
+
 		this.wizard.setQuiz(quiz);
 		this.wizard.nextPage();
 	}
@@ -408,8 +492,6 @@ public class Page1 extends WizardPage {
 
 		this.searchTextIcon.setToolTipText(I18N.getString(I18N.CLEAR));
 		this.searchText.setMessage(I18N.getString(I18N.SEARCH_QUIZ));
-		this.tableColumn1.setText(I18N.getString(I18N.UNIT));
-		this.tableColumn2.setText(I18N.getString(I18N.TITLE));
 
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
@@ -423,13 +505,16 @@ public class Page1 extends WizardPage {
 
 	@Override
 	public void focus() {
+
+		// FIXME: Reload quizzes
+
 		Shell shell = this.slblHeader.getShell();
 		shell.setImage(Resources.getImage(Resources.IMG_FOX16x16));
 		shell.setText(I18N.getString(I18N.APPLICATION_TITLE));
 		shell.setDefaultButton(this.btnNext);
 	}
 
-	private String toLowerCasePlainText(String text) {
+	private static String toLowerCasePlainText(String text) {
 		final String[][] REPLACEMENTS = { //
 			{ "à", "a" }, //
 			{ "â", "a" }, //
@@ -455,51 +540,63 @@ public class Page1 extends WizardPage {
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	private class TableElement {
-		private String key;
-		private Language targetLanguage;
-		private String unit;
-		private String plainTextUnit;
-		private String title;
-		private String plainTextTitle;
-		private File file;
+	public static class TreeNode {
+		static private final TreeNode[] EMPTY_NODES = new TreeNode[0];
+		static private final List<TreeNode> EMPTY_LIST = new ArrayList<TreeNode>();
 
-		public TableElement(String key, Language targetLanguage, String unit, String title, File file) {
-			this.key = key;
+		private TreeNode parent;
+		private final String text;
+		private final String plainText;
+		private final Language targetLanguage;
+		private final File file;
+		private List<TreeNode> children;
+
+		private TreeNode(String text, Language targetLanguage, File file) {
+			this.text = text;
+			this.plainText = toLowerCasePlainText(text);
 			this.targetLanguage = targetLanguage;
-			this.unit = unit;
-			this.plainTextUnit = toLowerCasePlainText(unit);
-			this.title = title;
-			this.plainTextTitle = toLowerCasePlainText(title);
 			this.file = file;
+			this.parent = null;
+			this.children = EMPTY_LIST;
 		}
 
-		public String getKey() {
-			return this.key;
+		public String getText() {
+			return this.text;
+		}
+
+		public String getPlainText() {
+			return this.plainText;
 		}
 
 		public Language getTargetLanguage() {
 			return this.targetLanguage;
 		}
 
-		public String getUnit() {
-			return this.unit;
-		}
-
-		public String getPlainTextUnit() {
-			return this.plainTextUnit;
-		}
-
-		public String getTitle() {
-			return this.title;
-		}
-
-		public String getPlainTextTitle() {
-			return this.plainTextTitle;
-		}
-
 		public File getFile() {
 			return this.file;
+		}
+
+		public TreeNode getParent() {
+			return this.parent;
+		}
+
+		public TreeNode[] getChildren() {
+			if (this.children == EMPTY_LIST) {
+				return EMPTY_NODES;
+			}
+			return this.children.toArray(EMPTY_NODES);
+		}
+
+		public boolean hasChildren() {
+			return this.children.size() > 0;
+		}
+
+		public void addChild(TreeNode treeNode) {
+			if (this.children == EMPTY_LIST) {
+				this.children = new ArrayList<TreeNode>();
+			}
+			this.children.add(treeNode);
+			treeNode.parent = this;
 		}
 	}
 
@@ -521,51 +618,54 @@ public class Page1 extends WizardPage {
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	private static class StyledLabelProvider implements IStyledLabelProvider {
-		private static final StyledString EMPTY_STYLED_STRING = new StyledString();
+	private static class FilteredTreeLabelProvider implements IStyledLabelProvider {
+		private NodeMatcher nodeMatcher;
 
-		private ElementMatcher elementMatcher;
-		private int columnIndex;
-
-		public StyledLabelProvider(ElementMatcher elementMatcher, int columnIndex) {
-			this.elementMatcher = elementMatcher;
-			this.columnIndex = columnIndex;
+		public FilteredTreeLabelProvider(NodeMatcher nodeMatcher) {
+			this.nodeMatcher = nodeMatcher;
 		}
 
 		@Override
 		public org.eclipse.jface.viewers.StyledString getStyledText(Object element) {
-			if (this.columnIndex == 1) {
-				TableElement tableElement = (TableElement) element;
-				return applyStyles(tableElement.getUnit(), tableElement.getPlainTextUnit());
-			} else if (this.columnIndex == 2) {
-				TableElement tableElement = (TableElement) element;
-				return applyStyles(tableElement.getTitle(), tableElement.getPlainTextTitle());
+			TreeNode treeNode = (TreeNode) element;
+
+			String text = treeNode.getText();
+			String textToMatch = treeNode.getPlainText();
+
+			StyledString styledString = new StyledString();
+			if (this.nodeMatcher.matches(textToMatch)) {
+				int posStartMatch = this.nodeMatcher.start();
+				int posEndMatch = this.nodeMatcher.end();
+				styledString.append(text.substring(0, posStartMatch), STYLER_DEFAULT);
+				styledString.append(text.substring(posStartMatch, posEndMatch), STYLER_BOLD);
+				styledString.append(text.substring(posEndMatch), STYLER_DEFAULT);
+			} else {
+				styledString.append(text, STYLER_DEFAULT);
 			}
-			return EMPTY_STYLED_STRING;
+			return styledString;
 		}
 
 		@Override
 		public Image getImage(Object element) {
-			if (this.columnIndex == 0) {
-				TableElement tableElement = (TableElement) element;
-				switch (tableElement.getTargetLanguage()) {
-					case EN:
-						return Resources.getImage(Resources.IMG_ENGLISH15x15);
-					case FR:
-						return Resources.getImage(Resources.IMG_FRENCH15x15);
-				}
+			TreeNode treeNode = (TreeNode) element;
+			Language targetLanguage = treeNode.getTargetLanguage();
+			if (targetLanguage == Language.EN) {
+				return Resources.getImage(Resources.IMG_ENGLISH16x16);
+			} else if (targetLanguage == Language.FR) {
+				return Resources.getImage(Resources.IMG_FRENCH16x16);
+			} else {
+				return Resources.getImage(Resources.IMG_FOLDER16x16);
 			}
-			return null;
 		}
 
 		@Override
 		public void addListener(ILabelProviderListener listener) {
-			// empty
+			// ignore
 		}
 
 		@Override
 		public void dispose() {
-			// empty
+			// ignore
 		}
 
 		@Override
@@ -575,95 +675,109 @@ public class Page1 extends WizardPage {
 
 		@Override
 		public void removeListener(ILabelProviderListener listener) {
-			// empty
-		}
-
-		private StyledString applyStyles(String text, String textToMatch) {
-			StyledString styledString = new StyledString();
-			if (this.elementMatcher.matches(textToMatch)) {
-				int posStartMatch = this.elementMatcher.getStart();
-				int posEndMatch = this.elementMatcher.getEnd();
-				styledString.append(text.substring(0, posStartMatch), STYLER_DEFAULT);
-				styledString.append(text.substring(posStartMatch, posEndMatch), STYLER_BOLD);
-				styledString.append(text.substring(posEndMatch), STYLER_DEFAULT);
-				return styledString;
-			}
-			return styledString.append(text, STYLER_DEFAULT);
+			// ignore
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	private static class TableViewerSorter extends ViewerComparator {
-		private static final Collator COLLATOR = Collator.getInstance();
+	private static final class NodeMatcher {
+		private Pattern pattern;
+		private int start;
+		private int end;
 
-		@Override
-		public int compare(Viewer viewer, Object o1, Object o2) {
-			TableElement tableElement1 = (TableElement) o1;
-			TableElement tableElement2 = (TableElement) o2;
-			return COLLATOR.compare(tableElement1.getKey(), tableElement2.getKey());
+		public NodeMatcher() {
+			setPattern("");
+		}
+
+		public void setPattern(String pattern) {
+			this.pattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.LITERAL);
+			this.start = -1;
+			this.end = -1;
+		}
+
+		public boolean matches(String stringToMatch) {
+			Matcher matcher = this.pattern.matcher(stringToMatch);
+			boolean isMatch = matcher.find();
+			this.start = isMatch ? matcher.start() : -1;
+			this.end = isMatch ? matcher.end() : -1;
+			return isMatch;
+		}
+
+		public int start() {
+			return this.start;
+		}
+
+		public int end() {
+			return this.end;
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	private static class TableViewerFilter extends ViewerFilter {
-		private final ElementMatcher elementMatcher;
+	private static class FilteredTreeViewerFilter extends ViewerFilter {
+		private final NodeMatcher nodeMatcher;
 
-		public TableViewerFilter(ElementMatcher elementMatcher) {
-			this.elementMatcher = elementMatcher;
+		public FilteredTreeViewerFilter(NodeMatcher nodeMatcher) {
+			this.nodeMatcher = nodeMatcher;
 		}
 
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
-			if (element instanceof TableElement) {
-				TableElement tableElement = (TableElement) element;
-				String plainTextUnit = tableElement.getPlainTextUnit();
-				if (this.elementMatcher.matches(plainTextUnit)) {
-					return true;
+			TreeNode treeNode = (TreeNode) element;
+			boolean isSelected = isSelected(treeNode);
+			return isSelected;
+		}
+
+		private boolean isSelected(TreeNode treeNode) {
+			if (treeNode.hasChildren() == false) {
+				TreeNode node = treeNode;
+				while (node != null) {
+					if (this.nodeMatcher.matches(node.getPlainText())) {
+						return true;
+					}
+					node = node.getParent();
 				}
-				String plainTextTitle = tableElement.getPlainTextTitle();
-				if (this.elementMatcher.matches(plainTextTitle)) {
+				return false;
+			}
+
+			if (this.nodeMatcher.matches(treeNode.getPlainText())) {
+				return true;
+			}
+
+			for (TreeNode childNode : treeNode.getChildren()) {
+				if (isSelected(childNode)) {
 					return true;
 				}
 			}
+
 			return false;
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	private ElementMatcher elementMatcher = new ElementMatcher();
+	public static class FilteredTreeContentProvider extends ArrayContentProvider implements ITreeContentProvider {
 
-	private static class ElementMatcher {
-		private Pattern pattern;
-		private Matcher matcher;
-		private int matchStart = -1;
-		private int matchEnd = -1;
-
-		public ElementMatcher() {
-			setPattern(""); //$NON-NLS-1$
+		@Override
+		public Object[] getChildren(Object parent) {
+			TreeNode treeNode = (TreeNode) parent;
+			return treeNode.getChildren();
 		}
 
-		public void setPattern(String pattern) {
-			this.pattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.LITERAL);
+		@Override
+		public Object getParent(Object element) {
+			if (element instanceof TreeNode) {
+				TreeNode treeNode = (TreeNode) element;
+				return treeNode.getParent();
+			}
+			return null;
 		}
 
-		public boolean matches(String stringToMatch) {
-			this.matcher = this.pattern.matcher(stringToMatch);
-			boolean isFind = this.matcher.find();
-			this.matchStart = isFind ? this.matcher.start() : -1;
-			this.matchEnd = isFind ? this.matcher.end() : -1;
-			return isFind;
-		}
-
-		public int getStart() {
-			return this.matchStart;
-		}
-
-		public int getEnd() {
-			return this.matchEnd;
+		@Override
+		public boolean hasChildren(Object element) {
+			TreeNode treeNode = (TreeNode) element;
+			return treeNode.hasChildren();
 		}
 	}
 }
-// 574
