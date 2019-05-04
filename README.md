@@ -26,11 +26,11 @@ Enjoy -- Lorenz
 
 ## Quick Start
 
-I have prepared for you a ready-to-run VocabularyFox file for the Windows (64-bit) platform. To run it, follow these steps:
+I have prepared for you a ready-to-run VocabularyFox [release](https://github.com/lwiest/VocabularyFox/releases/latest) for the Windows (64-bit) platform. To run it, follow these steps:
 
-1. Download and extract this project's ZIP file from GitHub.
-2. Open folder `exe`. 
-3. Double-click the file `VocabularyFox.exe`.
+1. Download [VocabularyFox.zip](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.zip) from GitHub.
+2. Unzip this file.
+3. Locate the file `VocabularyFox.exe`, then double-click it.
 
 ## Visual Tour
 
@@ -89,9 +89,8 @@ It is easy to add your own quizzes to VocabularyFox!
 
 ## Technical Footnotes
 
-* The `VocabularyFox.exe` file contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn't find one, it uses the OpenJDK Java Runtime bundled with VocabularyFox. It is located in the `openJdk` folder of this project's ZIP file. If a Java Runtime is installed on your system, you can simply delete the `openJdk` folder. The file `VocabularyFox.exe` was created with Launch4J. Both Launch4J and OpenJDK are open-source software.
-* VocabularyFox looks for quizzes in the `quizzes` folder, which is located in the same folder as the `VocabularyFolder.exe` file. If no `quizzes` folder exists, then VocabularyFox creates a `quizzes` folder with a sample quiz.
-* VocabularyFox saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this file, it is automatically created by VocabularyFox.
+* VocabularyFox looks for quizzes in the `quizzes` folder, which is located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this folder, then VocabularyFox automatically creates a `quizzes` folder with a sample quiz.
+* VocabularyFox saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this file, then VocabularyFox automatically creates it.
 
 ## Build Instructions
 
@@ -100,21 +99,11 @@ It is easy to add your own quizzes to VocabularyFox!
 * You have a Java SDK installed on your system (I used Java SDK 8 (64-bit)).
 * You have an Eclipse IDE installed on your system (I used Eclipse 4.5.0 "Mars" (64-bit)).
 
-1. Download the ZIP file of this project from GitHub.
+1. Download the [project ZIP file](https://github.com/lwiest/VocabularyFox/archive/master.zip) from GitHub.
 2. Unzip it to a temporary folder ("temp folder").
 3. Import the `VocabularyFox` project from the temp folder to your Eclipse IDE as an import source _General > Existing Projects into Workspace_.
 4. In the _Project Explorer_ view, right-click _VocabularyFox_ and select _Run As > Java Application_.
-5. The VocabularyFox application starts. Close it.
-6. In the _Project Explorer_ view, right-click _VocabularyFox_ and select _Export..._.
-7. Select _Java > Runnable JAR file_.
-8. Click _Next >_.
-9. Under _Launch Configuration_, select _VocabularyFox - VocabularyFox_.
-10. Under _Export destination_, enter the full pathname of the exported application, for example `C:\TEMP\VocabularyFox.jar`.
-11. Select the radio button _Package required libraries into generated JAR_.
-12. Click _Finish_.
-13. Use a file explorer to find the exported JAR file.
-14. To run the exported JAR file, double-click it.
-15. To convert the JAR file into an executable file see the Launch4J project on the Internet.
+5. The VocabularyFox application starts.
 
 ## Porting Tips
 
