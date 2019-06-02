@@ -26,11 +26,13 @@ Enjoy -- Lorenz
 
 ## Quick Start
 
-I have prepared for you a ready-to-run VocabularyFox [release](https://github.com/lwiest/VocabularyFox/releases/latest) for the Windows (64-bit) platform. To run it, follow these steps:
+I have prepared for you a ready-to-run [release](https://github.com/lwiest/VocabularyFox/releases/latest) of VocabularyFox for Windows (64-bit).
 
-1. Download [VocabularyFox.zip](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.zip) from GitHub.
-2. Unzip this file.
-3. Locate the file `VocabularyFox.exe`, then double-click it.
+### Instructions
+
+1. Download [VocabularyFox.zip](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.zip).
+2. Unzip this file to a folder.
+3. Locate the file `VocabularyFox.exe` in the folder, then double-click it.
 
 ## Visual Tour
 
@@ -58,7 +60,7 @@ _(French quizzes only)_ To enter French text with a non-French keyboard, click b
 
 <img src="pics/pic07.png"/>
 
-_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn't indicate the gender. After typing the answer, click either the "m." (masculine) of "f." (feminine) button to define the gender, then continue with the next word.
+_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn't indicate the gender. After typing the answer, click either the "m." (masculine) or "f." (feminine) button to define the gender, then continue with the next word.
 
 <img src="pics/pic08.png"/>
 
@@ -91,13 +93,14 @@ It is easy to add your own quizzes to VocabularyFox!
 
 * VocabularyFox looks for quizzes in the `quizzes` folder, which is located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this folder, then VocabularyFox automatically creates a `quizzes` folder with a sample quiz.
 * VocabularyFox saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this file, then VocabularyFox automatically creates it.
+* The `VocabularyFox.exe` file of the [release](https://github.com/lwiest/VocabularyFox/releases/latest) contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn't find one, it uses the OpenJDK Java Runtime bundled with `VocabularyFox.zip` of the [release](https://github.com/lwiest/VocabularyFox/releases/latest). It is located in the `openJdk` folder. If a Java Runtime is installed on your system, you can simply delete the `openJdk` folder. The file `VocabularyFox.exe` was created with Launch4J. Both Launch4J and OpenJDK are open-source software.
 
 ## Build Instructions
 
 **Prerequisites:**
 * You are running a Windows (64-bit) system.
-* You have a Java SDK installed on your system (I used Java SDK 8 (64-bit)).
-* You have an Eclipse IDE installed on your system (I used Eclipse 4.5.0 "Mars" (64-bit)).
+* You have installed a Java SDK 8 (or higher) (64-bit) on your system (I used Java SDK 8 (64-bit)).
+* You have installed an Eclipse IDE on your system (I used Eclipse 4.5.0 "Mars" (64-bit)).
 
 1. Download the [project ZIP file](https://github.com/lwiest/VocabularyFox/archive/master.zip) from GitHub.
 2. Unzip it to a temporary folder ("temp folder").
