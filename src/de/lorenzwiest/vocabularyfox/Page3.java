@@ -678,7 +678,6 @@ public class Page3 extends WizardPage {
 
 			appendLine(sb, "<td>");
 			appendLine(sb, String.format("<span class=\"%s\">%s</span>", cssExpectedAnswer, strExpectedAnswer));
-			appendLine(sb, "</span>");
 			appendLine(sb, "</td>");
 
 			appendLine(sb, "</tr>");
