@@ -29,13 +29,15 @@ package de.lorenzwiest.vocabularyfox;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.part.PageBook;
 
 public class VocabularyFox extends ApplicationWindow {
-	public static final String VERSION = "2019-10-17 21:00:00";
+	public static final String VERSION = "2019-10-17 22:30:00";
 
 	private static final Point INITAL_SIZE = new Point(500, 400);
 
@@ -46,14 +48,34 @@ public class VocabularyFox extends ApplicationWindow {
 	private WizardPage page3;
 
 	@Override
-	protected Point getInitialSize() {
-		return INITAL_SIZE;
-	}
-
-	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
 		shell.setMinimumSize(INITAL_SIZE);
+	}
+
+	@Override
+	protected Point getInitialSize() {
+		return PreferencesDialog.getPreferenceApplicationWindowSize(INITAL_SIZE);
+	}
+
+	@Override
+	protected Point getInitialLocation(Point initialSize) {
+		Rectangle parentBounds = Display.getDefault().getBounds();
+
+		Point ptParentLoc = new Point(parentBounds.x, parentBounds.y);
+		Point ptParentSize = new Point(parentBounds.width, parentBounds.height);
+		Point ptDialogSize = getInitialSize();
+
+		int newX = ptParentLoc.x + ((ptParentSize.x - ptDialogSize.x) / 2);
+		int newY = ptParentLoc.y + ((ptParentSize.y - ptDialogSize.y) / 2);
+		return new Point(newX, newY);
+	}
+
+	@Override
+	public boolean close() {
+		Point currentSize = getShell().getSize();
+		PreferencesDialog.setPreferenceApplicationWindowSize(currentSize);
+		return super.close();
 	}
 
 	@Override

@@ -580,4 +580,37 @@ public class PreferencesDialog extends Dialog {
 		boolean result = getPreferenceDontShowTip(prefStore, language);
 		return result;
 	}
+
+	// Preference application window width and height
+
+	private static final String PREFERENCE_APPLICATION_WINDOW_WIDTH = ".applicationWindowWidth";
+	private static final String PREFERENCE_APPLICATION_WINDOW_HEIGHT = ".applicationWindowHeight";
+
+	public static void setPreferenceApplicationWindowSize(Point size) {
+		final String widthId = ID + PREFERENCE_APPLICATION_WINDOW_WIDTH;
+		final String heightId = ID + PREFERENCE_APPLICATION_WINDOW_HEIGHT;
+
+		PreferenceStore prefStore = loadPrefStore();
+		prefStore.setValue(widthId, size.x);
+		prefStore.setValue(heightId, size.y);
+		try {
+			prefStore.save();
+		} catch (IOException e) {
+			// e.printStackTrace();
+		}
+	}
+
+	public static Point getPreferenceApplicationWindowSize(Point initialSize) {
+		final String widthId = ID + PREFERENCE_APPLICATION_WINDOW_WIDTH;
+		final String heightId = ID + PREFERENCE_APPLICATION_WINDOW_HEIGHT;
+
+		PreferenceStore prefStore = loadPrefStore();
+		if ((prefStore.contains(widthId) == false) || (prefStore.contains(heightId) == false)) {
+			setPreferenceApplicationWindowSize(initialSize);
+		}
+
+		int width = prefStore.getInt(widthId);
+		int height = prefStore.getInt(heightId);
+		return new Point(width, height);
+	}
 }
