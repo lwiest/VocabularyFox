@@ -490,8 +490,9 @@ public class Page3 extends WizardPage {
 	}
 
 	private Image createProgressBarImage(int percentCorrect) {
-		final int WIDTH = 350;
-		final int HEIGHT = 14;
+		final int WIDTH = Utils.scaleToDisplay(350);
+		final int HEIGHT = Utils.scaleToDisplay(14);
+
 		Image img = new Image(Display.getCurrent(), WIDTH, HEIGHT);
 
 		GC gc = new GC(img);

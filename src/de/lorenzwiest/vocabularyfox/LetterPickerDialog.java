@@ -59,8 +59,8 @@ public class LetterPickerDialog extends Dialog {
 		"à", "â", "æ", "ç", "è", "é", "ê", "ë", "î", "ï", "ô", "œ", "ù", "û", "ü" //
 	};
 
-	private static final int LETTER_ICON_WIDTH = 34;
-	private static final int LETTER_ICON_HEIGHT = 34;
+	private static final int LETTER_ICON_WIDTH = Utils.scaleToDisplay(34);
+	private static final int LETTER_ICON_HEIGHT = Utils.scaleToDisplay(34);
 	private static final String KEY_DATA_LETTER = "LETTER";
 
 	private List<Table> letterIconTables = new ArrayList<Table>();
@@ -82,9 +82,9 @@ public class LetterPickerDialog extends Dialog {
 
 		final int NUM_CHARS_IN_ROW = 12;
 		final int NUM_CHARS_IN_COL = 3;
-		final int SPACING_PX = 3;
-		final int INTRO_PX = 3;
-		final int OUTRO_PX = 3;
+		final int SPACING_PX = 3; // don't scale with display resolution
+		final int INTRO_PX = 3; // don't scale with display resolution
+		final int OUTRO_PX = 3; // don't scale with display resolution
 		final int PICKER_WIDTH = INTRO_PX + (NUM_CHARS_IN_ROW * LETTER_ICON_WIDTH) + ((NUM_CHARS_IN_ROW - 1) * SPACING_PX) + OUTRO_PX;
 		final int PICKER_HEIGHT = INTRO_PX + (NUM_CHARS_IN_COL * LETTER_ICON_HEIGHT) + ((NUM_CHARS_IN_COL - 1) * SPACING_PX) + OUTRO_PX;
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.BEGINNING).grab(true, false).hint(PICKER_WIDTH, PICKER_HEIGHT).applyTo(composite);
@@ -131,7 +131,7 @@ public class LetterPickerDialog extends Dialog {
 		Listener paintListener = new Listener() {
 			@Override
 			public void handleEvent(Event e) {
-				final int MAGIC_OFFSET = 4;
+				final int MAGIC_OFFSET = 4; // magic number
 
 				if (e.item instanceof TableItem) {
 					switch (e.type) {

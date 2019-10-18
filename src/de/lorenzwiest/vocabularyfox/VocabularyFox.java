@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.part.PageBook;
 
 public class VocabularyFox extends ApplicationWindow {
-	public static final String VERSION = "2019-06-03 18:40:00";
+	public static final String VERSION = "2019-10-17 21:00:00";
 
 	private static final Point INITAL_SIZE = new Point(500, 400);
 

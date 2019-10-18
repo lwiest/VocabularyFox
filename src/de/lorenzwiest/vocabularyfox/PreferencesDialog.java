@@ -92,7 +92,7 @@ public class PreferencesDialog extends Dialog {
 		compDialogArea.setBackground(Resources.getColor(Resources.COLOR_WHITE));
 
 		Composite composite = new Composite(compDialogArea, SWT.NONE);
-		GridLayoutFactory.swtDefaults().numColumns(3).spacing(Resources.INDENT * 2, 5).applyTo(composite);
+		GridLayoutFactory.swtDefaults().numColumns(3).spacing(Resources.INDENT * 2, Resources.INDENT / 2).applyTo(composite);
 
 		composite.setBackground(Resources.getColor(Resources.COLOR_WHITE));
 		composite.setBackgroundMode(SWT.INHERIT_FORCE);

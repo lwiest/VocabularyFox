@@ -25,6 +25,7 @@
 package de.lorenzwiest.vocabularyfox;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
@@ -34,6 +35,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
 
 public class Utils {
 	public static void setButtonDefaultFontAndWidth(Button button) {
@@ -49,6 +51,19 @@ public class Utils {
 		Point defaultSize = button.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		int newWidth = Math.max(widthHint, defaultSize.x);
 		((GridData) button.getLayoutData()).widthHint = newWidth;
+	}
+
+	public static int scaleToDisplay(int value) {
+		final int WINDOWS_OS_DEFAULT_DISPLAY_RESOLUTION = 96;
+		final int[] WINDOWS_OS_DISPLAY_RESOLUTIONS = { 96, 120, 144, 192 };
+
+		int displayResolution = Display.getCurrent().getDPI().x;
+		// hack to detect Windows OS, for which we scale the value only
+		if (Arrays.binarySearch(WINDOWS_OS_DISPLAY_RESOLUTIONS, displayResolution) > 0) {
+			int scaledValue = (int) (((value / (float) WINDOWS_OS_DEFAULT_DISPLAY_RESOLUTION) * displayResolution) + 0.5);
+			return scaledValue;
+		}
+		return value;
 	}
 
 	public static String base64Encode(byte[] bytes) {

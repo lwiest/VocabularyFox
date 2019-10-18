@@ -54,8 +54,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public class Page2 extends WizardPage {
-	private static final int MF_LABEL_WIDTH = 32;
-	private static final int MF_LABEL_HEIGHT = 26;
+	private static final int MF_LABEL_WIDTH = Utils.scaleToDisplay(32);
+	private static final int MF_LABEL_HEIGHT = Utils.scaleToDisplay(26);
+	private static final int LETTER_PICKER_OFFSET_Y = 2; // don't scale with display resolution
 
 	private static final String STR_WRONG_TRY_AGAIN[] = { //
 		I18N.getString(I18N.WRONG_TRY_AGAIN_0), //
@@ -288,7 +289,7 @@ public class Page2 extends WizardPage {
 		Point lblLetterPickerSize = this.lblLetterPicker.getSize();
 
 		int dialogLocationX = (lblLetterPickerLocation.x + lblLetterPickerSize.x) - dialogSize.x;
-		int dialogLocationY = lblLetterPickerLocation.y + lblLetterPickerSize.y + 2;
+		int dialogLocationY = lblLetterPickerLocation.y + lblLetterPickerSize.y + LETTER_PICKER_OFFSET_Y;
 		dialogShell.setLocation(dialogLocationX, dialogLocationY);
 
 		dialog.setBlockOnOpen(true);

@@ -44,7 +44,7 @@ import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Display;
 
 public class Resources {
-	public static final int INDENT = 10;
+	public static final int INDENT = Utils.scaleToDisplay(10);
 
 	private static final String CR = System.getProperty("line.separator");
 
