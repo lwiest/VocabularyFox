@@ -40,6 +40,7 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -341,7 +342,13 @@ public class Page3 extends WizardPage {
 		// Shell shell = Display.getCurrent().getActiveShell();
 		// shell.setDefaultButton(this.btnNewQuiz);
 
-		updateScrollableContent(this.compGrid);
+		BusyIndicator.showWhile(Display.getDefault(), new Runnable() {
+			@Override
+			public void run() {
+				updateScrollableContent(Page3.this.compGrid);
+			}
+		});
+
 		this.scrolledComposite.layout(true, true);
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
@@ -704,7 +711,7 @@ public class Page3 extends WizardPage {
 		}
 		appendLine(sb, "</td>");
 		appendLine(sb, "</tr>");
-	};
+	}
 
 	private static String parseToHtml(String text, String cssNormal, String cssGrey) {
 		StringBuffer sb = new StringBuffer();
