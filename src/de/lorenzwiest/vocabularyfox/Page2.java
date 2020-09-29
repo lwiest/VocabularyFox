@@ -515,7 +515,6 @@ public class Page2 extends WizardPage {
 				return;
 			}
 		}
-		this.triesCount = 0;
 		this.questionIndex++;
 		if (this.questionIndex < questions.size()) {
 			showNewQuestion();
@@ -580,6 +579,8 @@ public class Page2 extends WizardPage {
 		updateSkipButton();
 
 		this.slblNOutOfM.getParent().layout(true, true);
+
+		this.triesCount = 0;
 	}
 
 	private void updateSkipButton() {
