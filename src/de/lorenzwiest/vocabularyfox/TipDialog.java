@@ -68,23 +68,33 @@ public class TipDialog extends Dialog {
 		compDialogArea.setBackground(Resources.getColor(Resources.COLOR_WHITE));
 
 		Composite composite = new Composite(compDialogArea, SWT.NONE);
-		composite.setLayout(new GridLayout(2, false));
+		GridLayoutFactory.swtDefaults().numColumns(2).margins(0, 0).applyTo(composite);
 		composite.setBackground(Resources.getColor(Resources.COLOR_WHITE));
 
-		StyledLabel slbl0 = new StyledLabel(composite, SWT.PUSH);
+		Label lblFoxIcon = new Label(composite, SWT.NONE);
+		lblFoxIcon.setImage(Resources.getImage(Resources.IMG_FOX32x32_STAR));
+		lblFoxIcon.setBackground(Resources.getColor(Resources.COLOR_WHITE));
+		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).indent(Resources.HALF_INDENT, Resources.HALF_INDENT).applyTo(lblFoxIcon);
+
+		Composite rightComposite = new Composite(composite, SWT.NONE);
+		rightComposite.setLayout(new GridLayout(2, false));
+		rightComposite.setBackground(Resources.getColor(Resources.COLOR_WHITE));
+		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).applyTo(rightComposite);
+
+		StyledLabel slbl0 = new StyledLabel(rightComposite, SWT.NONE);
 		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).grab(true, false).span(2, 1).applyTo(slbl0);
 		slbl0.setStyledText(I18N.getString(I18N.USE_FOLLOWING_ABBREVIATIONS));
 
-		createBlankLabel(composite);
-		createBlankLabel(composite);
+		createBlankLabel(rightComposite);
+		createBlankLabel(rightComposite);
 
 		String[][] abbreviationPairs = this.targetLanguage.getAbbreviationPairs();
 		for (String[] abbreviationPair : abbreviationPairs) {
-			StyledLabel slbl1 = new StyledLabel(composite, SWT.PUSH);
+			StyledLabel slbl1 = new StyledLabel(rightComposite, SWT.PUSH);
 			GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).applyTo(slbl1);
 			slbl1.setStyledText(abbreviationPair[0]);
 
-			StyledLabel slbl2 = new StyledLabel(composite, SWT.PUSH);
+			StyledLabel slbl2 = new StyledLabel(rightComposite, SWT.PUSH);
 			GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).applyTo(slbl2);
 			for (int i = 1; i < (abbreviationPair.length - 1); i++) {
 				if (i > 1) {

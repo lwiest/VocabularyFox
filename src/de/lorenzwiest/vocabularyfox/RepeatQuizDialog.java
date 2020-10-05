@@ -61,17 +61,27 @@ public class RepeatQuizDialog extends Dialog {
 		compDialogArea.setBackground(Resources.getColor(Resources.COLOR_WHITE));
 
 		Composite composite = new Composite(compDialogArea, SWT.NONE);
-		composite.setLayout(new GridLayout(1, false));
+		GridLayoutFactory.swtDefaults().numColumns(2).margins(0, 0).applyTo(composite);
 		composite.setBackground(Resources.getColor(Resources.COLOR_WHITE));
-		composite.setBackgroundMode(SWT.INHERIT_FORCE);
 
-		StyledLabel slbl = new StyledLabel(composite, SWT.PUSH);
+		Label lblFoxIcon = new Label(composite, SWT.NONE);
+		lblFoxIcon.setImage(Resources.getImage(Resources.IMG_FOX32x32_QUESTION));
+		lblFoxIcon.setBackground(Resources.getColor(Resources.COLOR_WHITE));
+		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).indent(Resources.HALF_INDENT, Resources.HALF_INDENT).applyTo(lblFoxIcon);
+
+		Composite rightComposite = new Composite(composite, SWT.NONE);
+		rightComposite.setLayout(new GridLayout(1, false));
+		rightComposite.setBackground(Resources.getColor(Resources.COLOR_WHITE));
+		rightComposite.setBackgroundMode(SWT.INHERIT_FORCE);
+		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).applyTo(rightComposite);
+
+		StyledLabel slbl = new StyledLabel(rightComposite, SWT.NONE);
 		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.TOP).grab(true, false).applyTo(slbl);
 		slbl.setStyledText(I18N.getString(I18N.WHICH_WORDS_TO_ASK_AGAIN));
 
-		createBlankLabel(composite);
+		createBlankLabel(rightComposite);
 
-		Button radioRepeatAllQuestions = new Button(composite, SWT.RADIO);
+		Button radioRepeatAllQuestions = new Button(rightComposite, SWT.RADIO);
 		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).applyTo(radioRepeatAllQuestions);
 		radioRepeatAllQuestions.setText(I18N.getString(I18N.ALL_WORDS));
 		radioRepeatAllQuestions.setFont(Resources.getFont(Resources.FONT_DEFAULT));
@@ -83,7 +93,7 @@ public class RepeatQuizDialog extends Dialog {
 			}
 		});
 
-		Button radioRepeatQuestionsWithErrros = new Button(composite, SWT.RADIO);
+		Button radioRepeatQuestionsWithErrros = new Button(rightComposite, SWT.RADIO);
 		GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER).applyTo(radioRepeatQuestionsWithErrros);
 		radioRepeatQuestionsWithErrros.setText(I18N.getString(I18N.WRONG_WORDS_ONLY));
 		radioRepeatQuestionsWithErrros.setFont(Resources.getFont(Resources.FONT_DEFAULT));

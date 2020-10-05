@@ -45,6 +45,7 @@ import org.eclipse.swt.widgets.Display;
 
 public class Resources {
 	public static final int INDENT = Utils.scaleToDisplay(10);
+	public static final int HALF_INDENT = INDENT / 2;
 
 	private static final String CR = System.getProperty("line.separator");
 
@@ -123,6 +124,9 @@ public class Resources {
 	public static final String IMG_FOLDER16x16 = "icons/folder16x16.png";
 	public static final String IMG_FOX16x16 = "icons/fox16x16.png";
 	public static final String IMG_FOX32x32 = "icons/fox32x32.png";
+	public static final String IMG_FOX32x32_QUESTION = "icons/fox32x32_question.png";
+	public static final String IMG_FOX32x32_STAR = "icons/fox32x32_star.png";
+	public static final String IMG_FOX32x32_EXCLAMATION = "icons/fox32x32_exclamation.png";
 	public static final String IMG_FOX48x48 = "icons/fox48x48.png";
 
 	static {
@@ -141,6 +145,9 @@ public class Resources {
 		IMAGE_REGISTRY.put(IMG_FOLDER16x16, Resources.readImage(IMG_FOLDER16x16));
 		IMAGE_REGISTRY.put(IMG_FOX16x16, Resources.readImage(IMG_FOX16x16));
 		IMAGE_REGISTRY.put(IMG_FOX32x32, Resources.readImage(IMG_FOX32x32));
+		IMAGE_REGISTRY.put(IMG_FOX32x32_QUESTION, Resources.readImage(IMG_FOX32x32_QUESTION));
+		IMAGE_REGISTRY.put(IMG_FOX32x32_STAR, Resources.readImage(IMG_FOX32x32_STAR));
+		IMAGE_REGISTRY.put(IMG_FOX32x32_EXCLAMATION, Resources.readImage(IMG_FOX32x32_EXCLAMATION));
 		IMAGE_REGISTRY.put(IMG_FOX48x48, Resources.readImage(IMG_FOX48x48));
 
 		COLOR_REGISTRY = new ColorRegistry(Display.getCurrent());
