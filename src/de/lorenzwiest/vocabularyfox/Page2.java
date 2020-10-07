@@ -427,11 +427,11 @@ public class Page2 extends WizardPage {
 		// cleanse answer
 		String rawAnswer = this.txtAnswer.getText();
 		String answer = rawAnswer.trim().replaceAll("\\s\\s+", " ");
-		answer = replaceAbbreviations(answer, targetLanguage);
+		String normalizedAnswer = replaceAbbreviations(answer, targetLanguage);
 
 		String expectedAnswerToCompare = replaceAbbreviations(question.getExpectedAnswer(), targetLanguage);
 
-		boolean isCorrectAnswer = answer.equals(expectedAnswerToCompare);
+		boolean isCorrectAnswer = normalizedAnswer.equals(expectedAnswerToCompare);
 		boolean isCorrectGender = true;
 		Gender expectedGender = question.getExpectedGender();
 		if (expectedGender != Gender.DONT_CARE) {
@@ -448,7 +448,7 @@ public class Page2 extends WizardPage {
 				}
 				Question questionToCompare = questions.get(i);
 				String tmpExpectedAnswerToCompare = replaceAbbreviations(question.getExpectedAnswer(), targetLanguage); // TODO: Lots of abbreviation replacements. Cache them?
-				if (strQuestion.equals(questionToCompare.getQuestion()) && answer.equals(tmpExpectedAnswerToCompare)) {
+				if (strQuestion.equals(questionToCompare.getQuestion()) && normalizedAnswer.equals(tmpExpectedAnswerToCompare)) {
 					existsQuestionDouble = true;
 					break;
 				}
