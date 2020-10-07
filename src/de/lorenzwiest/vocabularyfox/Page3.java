@@ -389,7 +389,7 @@ public class Page3 extends WizardPage {
 		boolean isFullScore = (getPercentCorrect(quiz) == 100);
 		if (wasAllQuestionsOfQuiz && isFullScore) {
 			Label lblFoxIcon = new Label(this.compProgress, SWT.NONE);
-			lblFoxIcon.setImage(Resources.getImage(Resources.IMG_FOX32x32));
+			lblFoxIcon.setImage(Resources.getImage(Resources.IMG_FOX32x32_EXCLAMATION));
 			lblFoxIcon.setBackground(Resources.getColor(Resources.COLOR_WHITE));
 			GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.CENTER).applyTo(lblFoxIcon);
 			this.widgetsToDispose.add(lblFoxIcon);
@@ -596,7 +596,7 @@ public class Page3 extends WizardPage {
 		appendLine(sb, "<tr>");
 		appendLine(sb, "<td colspan=\"" + numCols + "\" align=\"center\">");
 		if (isFullScore) {
-			String dataUrlImgFox = getDataUrl(Resources.getImage(Resources.IMG_FOX32x32));
+			String dataUrlImgFox = getDataUrl(Resources.getImage(Resources.IMG_FOX32x32_EXCLAMATION));
 
 			appendLine(sb, "<table>");
 			appendLine(sb, "<tr>");
