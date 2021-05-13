@@ -71,8 +71,8 @@ After you have entered all answers, your results are listed:
 
 Your answers are are color-coded as follows: 
 * Black: Correct answer on your first try
-* Orange: Correct answer on your second try
-* Red: Correct answer on your third try - or no correct answer at all
+* Orange exclamation mark: Correct answer on your second try
+* Red exclamation mark: Correct answer on your third try - or no correct answer at all
 * Blue: Noun of masculine gender
 * Dark red: Noun of feminine gender
 

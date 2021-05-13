@@ -59,18 +59,18 @@ public class Page2 extends WizardPage {
 	private static final int LETTER_PICKER_OFFSET_Y = 2; // don't scale with display resolution
 
 	private static final String STR_WRONG_TRY_AGAIN[] = { //
-		I18N.getString(I18N.WRONG_TRY_AGAIN_0), //
-		I18N.getString(I18N.WRONG_TRY_AGAIN_1), //
-		I18N.getString(I18N.WRONG_TRY_AGAIN_2), //
-		I18N.getString(I18N.WRONG_TRY_AGAIN_3), //
-		I18N.getString(I18N.WRONG_TRY_AGAIN_4), //
-		I18N.getString(I18N.WRONG_TRY_AGAIN_5) //
+			I18N.getString(I18N.WRONG_TRY_AGAIN_0), //
+			I18N.getString(I18N.WRONG_TRY_AGAIN_1), //
+			I18N.getString(I18N.WRONG_TRY_AGAIN_2), //
+			I18N.getString(I18N.WRONG_TRY_AGAIN_3), //
+			I18N.getString(I18N.WRONG_TRY_AGAIN_4), //
+			I18N.getString(I18N.WRONG_TRY_AGAIN_5) //
 	};
 
 	private static final String STR_WRONG[] = { //
-		I18N.getString(I18N.WRONG_0), //
-		I18N.getString(I18N.WRONG_1), //
-		I18N.getString(I18N.WRONG_2) //
+			I18N.getString(I18N.WRONG_0), //
+			I18N.getString(I18N.WRONG_1), //
+			I18N.getString(I18N.WRONG_2) //
 	};
 
 	private StyledLabel slblNOutOfM;
@@ -249,7 +249,7 @@ public class Page2 extends WizardPage {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				Page2.this.lblLetterPicker.setBackground(Resources.getColor(Resources.COLOR_LETTER_PICKER_CLICK));
-				letterPickerClicked();
+				letterPickerSelected();
 			}
 		});
 		this.lblLetterPicker.addMouseTrackListener(new MouseTrackAdapter() {
@@ -272,7 +272,7 @@ public class Page2 extends WizardPage {
 
 	private boolean isLetterPickerDialogOpen = false;
 
-	private void letterPickerClicked() {
+	private void letterPickerSelected() {
 		if (this.isLetterPickerDialogOpen) {
 			return;
 		}
@@ -358,7 +358,7 @@ public class Page2 extends WizardPage {
 		this.btnPrevious.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				previousButtonClicked();
+				previousButtonSelected();
 			}
 		});
 
@@ -370,7 +370,7 @@ public class Page2 extends WizardPage {
 		this.btnSkip.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				skipButtonClicked();
+				skipButtonSelected();
 			}
 		});
 
@@ -380,7 +380,7 @@ public class Page2 extends WizardPage {
 		this.btnNext.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				nextButtonClicked();
+				nextButtonSelected();
 			}
 		});
 	}
@@ -391,7 +391,7 @@ public class Page2 extends WizardPage {
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(lblHorizontalSpacer);
 	}
 
-	private void previousButtonClicked() {
+	private void previousButtonSelected() {
 		boolean isBtnPreviousEnabled = this.btnPrevious.isEnabled();
 		boolean isBtnNextEnabled = this.btnNext.isEnabled();
 		this.btnPrevious.setEnabled(false);
@@ -411,14 +411,14 @@ public class Page2 extends WizardPage {
 		}
 	}
 
-	private void skipButtonClicked() {
+	private void skipButtonSelected() {
 		List<Question> questions = this.wizard.getQuiz().getQuestions();
 		Question questionToSkip = questions.remove(this.questionIndex);
 		questions.add(questionToSkip);
 		showNewQuestion();
 	}
 
-	private void nextButtonClicked() {
+	private void nextButtonSelected() {
 		Quiz quiz = this.wizard.getQuiz();
 		Language targetLanguage = quiz.getTargetLanguage();
 		List<Question> questions = quiz.getQuestions();
@@ -468,6 +468,7 @@ public class Page2 extends WizardPage {
 				question.setActualAnswer(answer);
 				question.setGrade(Grade.CORRECT);
 			} else {
+				question.setActualAnswer(answer);
 				question.setGrade(Grade.ALMOST_CORRECT);
 			}
 		} else {

@@ -159,7 +159,7 @@ public class Page3 extends WizardPage {
 
 		this.compGrid = new Composite(composite, SWT.NONE);
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(this.compGrid);
-		GridLayoutFactory.swtDefaults().numColumns(4).spacing(Resources.INDENT, Resources.INDENT).applyTo(this.compGrid);
+		GridLayoutFactory.swtDefaults().numColumns(5).spacing(Resources.INDENT, Resources.INDENT).applyTo(this.compGrid);
 		this.compGrid.setBackground(Resources.getColor(Resources.COLOR_WHITE));
 
 		return composite;
@@ -206,7 +206,7 @@ public class Page3 extends WizardPage {
 		this.btnRepeatQuiz.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				repeatQuizButtonClicked();
+				repeatQuizButtonSelected();
 			}
 		});
 
@@ -216,7 +216,7 @@ public class Page3 extends WizardPage {
 		this.btnNewQuiz.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				newQuizButtonClicked();
+				newQuizButtonSelected();
 			}
 		});
 	}
@@ -249,7 +249,7 @@ public class Page3 extends WizardPage {
 		}
 	}
 
-	private void repeatQuizButtonClicked() {
+	private void repeatQuizButtonSelected() {
 		Quiz quiz = this.wizard.getQuiz();
 		Quiz newQuiz = quiz.createInitializedCopy();
 
@@ -292,14 +292,14 @@ public class Page3 extends WizardPage {
 			}
 		}
 		this.wizard.setQuiz(newQuiz);
-		previousButtonClicked();
+		previousButtonSelected();
 	}
 
-	private void previousButtonClicked() {
+	private void previousButtonSelected() {
 		this.wizard.previousPage();
 	}
 
-	private void newQuizButtonClicked() {
+	private void newQuizButtonSelected() {
 		this.wizard.nextPage();
 	}
 
@@ -425,6 +425,10 @@ public class Page3 extends WizardPage {
 		for (int i = 0; i < questions.size(); i++) {
 			Question question = questions.get(i);
 
+			boolean isAnswerCorrect = (question.getGrade() == Grade.CORRECT);
+			boolean isAnswerAlmostCorrect = (question.getGrade() == Grade.ALMOST_CORRECT);
+			boolean isAnswerWrong = (question.getGrade() == Grade.WRONG);
+
 			StyledLabel slblIndex = new StyledLabel(this.compGrid, SWT.NONE);
 			GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.CENTER).applyTo(slblIndex);
 			slblIndex.setStyledText("" + (i + 1));
@@ -435,23 +439,31 @@ public class Page3 extends WizardPage {
 			slblQuestion.setStyledText(StyledString.parse(question.getQuestion(), Resources.TS_DEFAULT, Resources.TS_GREY));
 			this.widgetsToDispose.add(slblQuestion);
 
+			String actualAnswer = question.getActualAnswer();
+			StyledLabel slblErrorMarker = new StyledLabel(this.compGrid, SWT.NONE);
+			GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.CENTER).grab(true, false).applyTo(slblErrorMarker);
+			if (isAnswerAlmostCorrect) {
+				slblErrorMarker.setStyledText("!", Resources.TS_ERROR_MARKER_ALMOST_CORRECT);
+			} else if (isAnswerWrong) {
+				slblErrorMarker.setStyledText("!", Resources.TS_ERROR_MARKER_WRONG);
+			}
+			this.widgetsToDispose.add(slblErrorMarker);
+
 			StyledLabel slblActualAnswer = new StyledLabel(this.compGrid, SWT.NONE);
 			GridDataFactory.swtDefaults().align(SWT.LEFT, SWT.CENTER).grab(true, false).applyTo(slblActualAnswer);
-			String actualAnswer = question.getActualAnswer();
 
 			if (actualAnswer.isEmpty()) {
 				slblActualAnswer.setStyledText(STR_M_DASH, Resources.TS_GREY);
-			} else if (question.getGrade() == Grade.CORRECT) {
+			} else if (isAnswerCorrect || isAnswerAlmostCorrect) {
 				TextStyle textStyle = getTextStyle(question.getExpectedGender());
 				slblActualAnswer.setStyledText(actualAnswer, textStyle);
-			} else if (question.getGrade() == Grade.ALMOST_CORRECT) {
-				slblActualAnswer.setStyledText(actualAnswer, Resources.TS_ALMOST_CORRECT);
 			} else {
-				slblActualAnswer.setStyledText(actualAnswer, Resources.TS_WRONG);
+				TextStyle textStyle = getTextStyleWrong(question.getActualGender());
+				slblActualAnswer.setStyledText(actualAnswer, textStyle);
 			}
 			this.widgetsToDispose.add(slblActualAnswer);
 
-			if (question.getGrade() == Grade.CORRECT) {
+			if (isAnswerCorrect || isAnswerAlmostCorrect) {
 				Label lblBlank = new Label(this.compGrid, SWT.NONE);
 				this.widgetsToDispose.add(lblBlank);
 			} else {
@@ -466,12 +478,22 @@ public class Page3 extends WizardPage {
 		}
 	}
 
-	private TextStyle getTextStyle(Gender expectedGender) {
+	private TextStyle getTextStyle(Gender gender) {
 		TextStyle textStyle = Resources.TS_DEFAULT_BOLD;
-		if (expectedGender == Gender.M) {
+		if (gender == Gender.M) {
 			textStyle = Resources.TS_M_BOLD;
-		} else if (expectedGender == Gender.F) {
+		} else if (gender == Gender.F) {
 			textStyle = Resources.TS_F_BOLD;
+		}
+		return textStyle;
+	}
+
+	private TextStyle getTextStyleWrong(Gender gender) {
+		TextStyle textStyle = Resources.TS_DEFAULT_WRONG;
+		if (gender == Gender.M) {
+			textStyle = Resources.TS_M_WRONG;
+		} else if (gender == Gender.F) {
+			textStyle = Resources.TS_F_WRONG;
 		}
 		return textStyle;
 	}
@@ -571,7 +593,7 @@ public class Page3 extends WizardPage {
 		appendHtmlProlog(sb);
 
 		boolean isFullScore = getPercentCorrect(quiz) == 100;
-		int numCols = isFullScore ? 3 : 4;
+		int numCols = isFullScore ? 3 : 5;
 
 		appendLine(sb, "<table>");
 		appendLine(sb, "<tr>");
@@ -633,6 +655,10 @@ public class Page3 extends WizardPage {
 		for (int i = 0; i < quiz.getQuestions().size(); i++) {
 			Question question = quiz.getQuestions().get(i);
 
+			boolean isAnswerCorrect = (question.getGrade() == Grade.CORRECT);
+			boolean isAnswerAlmostCorrect = (question.getGrade() == Grade.ALMOST_CORRECT);
+			boolean isAnswerWrong = (question.getGrade() == Grade.WRONG);
+
 			appendLine(sb, "<tr class=\"tr-plain\">");
 
 			appendLine(sb, "<td>");
@@ -645,13 +671,25 @@ public class Page3 extends WizardPage {
 			appendLine(sb, htmlQuestion);
 			appendLine(sb, "</td>");
 
+			appendLine(sb, "<td>");
+			if (isAnswerAlmostCorrect) {
+				String cssErrorMarker = "errormarker-almostcorrect";
+				String strErrorMarker = "!";
+				appendLine(sb, String.format("<span class=\"%s\">%s</span>", cssErrorMarker, strErrorMarker));
+			} else if (isAnswerWrong) {
+				String cssErrorMarker = "errormarker-wrong";
+				String strErrorMarker = "!";
+				appendLine(sb, String.format("<span class=\"%s\">%s</span>", cssErrorMarker, strErrorMarker));
+			}
+			appendLine(sb, "</td>");
+
 			String cssActualAnswer = "";
 			String strActualAnswer = question.getActualAnswer();
 
 			if (strActualAnswer.isEmpty()) {
 				cssActualAnswer = "grey";
 				strActualAnswer = HTML_M_DASH;
-			} else if (question.getGrade() == Grade.CORRECT) {
+			} else if (isAnswerCorrect || isAnswerAlmostCorrect) {
 				cssActualAnswer = "bold";
 				Gender expectedGender = question.getExpectedGender();
 				if (expectedGender == Gender.M) {
@@ -659,10 +697,14 @@ public class Page3 extends WizardPage {
 				} else if (expectedGender == Gender.F) {
 					cssActualAnswer = "f-bold";
 				}
-			} else if (question.getGrade() == Grade.ALMOST_CORRECT) {
-				cssActualAnswer = "almost-correct";
-			} else {
-				cssActualAnswer = "wrong";
+			} else if (isAnswerWrong) {
+				cssActualAnswer = "bold-wrong";
+				Gender actualGender = question.getActualGender();
+				if (actualGender == Gender.M) {
+					cssActualAnswer = "bold-m-wrong";
+				} else if (actualGender == Gender.F) {
+					cssActualAnswer = "bold-f-wrong";
+				}
 			}
 
 			appendLine(sb, "<td>");
@@ -672,7 +714,7 @@ public class Page3 extends WizardPage {
 			String cssExpectedAnswer = "";
 			String strExpectedAnswer = question.getExpectedAnswer();
 
-			if (question.getGrade() == Grade.CORRECT) {
+			if (isAnswerCorrect || isAnswerAlmostCorrect) {
 				strExpectedAnswer = HTML_NBSP;
 			} else {
 				cssExpectedAnswer = "bold";
@@ -756,9 +798,11 @@ public class Page3 extends WizardPage {
 		appendLine(sb, ".m-bold { font-weight: bold; color: " + toCssRgb(Resources.COLOR_M) + "; }");
 		appendLine(sb, ".f-bold { font-weight: bold; color: " + toCssRgb(Resources.COLOR_F) + "; }");
 		appendLine(sb, ".grey { color: " + toCssRgb(Resources.COLOR_GREY) + "; }");
-		appendLine(sb, ".wrong { color: " + toCssRgb(Resources.COLOR_RED) + "; text-decoration: line-through; }");
-		appendLine(sb, ".almost-correct { color: " + toCssRgb(Resources.COLOR_ORANGE) + "; text-decoration: line-through; }");
-
+		appendLine(sb, ".errormarker-wrong { color: " + toCssRgb(Resources.COLOR_RED) + "; font-weight: bold; }");
+		appendLine(sb, ".errormarker-almostcorrect { color: " + toCssRgb(Resources.COLOR_ORANGE) + "; font-weight: bold; }");
+		appendLine(sb, ".bold-wrong { color: " + toCssRgb(Resources.COLOR_RED) + "; text-decoration: line-through; font-weight: bold; }");
+		appendLine(sb, ".bold-m-wrong { color: " + toCssRgb(Resources.COLOR_M) + "; text-decoration: line-through; font-weight: bold; }");
+		appendLine(sb, ".bold-f-wrong{ color: " + toCssRgb(Resources.COLOR_F) + "; text-decoration: line-through; font-weight: bold; }");
 		appendLine(sb, "</style>");
 		appendLine(sb, "</head>");
 		appendLine(sb, "<body>");

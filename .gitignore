@@ -1,4 +1,5 @@
 bin/
 internal/
 quizzes/
+quizzes_*/
 .preferences_vocabularyfox

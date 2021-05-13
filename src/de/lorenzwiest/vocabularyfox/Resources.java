@@ -73,19 +73,21 @@ public class Resources {
 	public static TextStyle TS_SEMI_TITLE_BOLD;
 	public static TextStyle TS_SEMI_TITLE_GREY;
 	public static TextStyle TS_DEFAULT;
-	public static TextStyle TS_DEFAULT_RED;
 	public static TextStyle TS_DEFAULT_BOLD;
-	public static TextStyle TS_M;
-	public static TextStyle TS_F;
 	public static TextStyle TS_M_BOLD;
 	public static TextStyle TS_F_BOLD;
-	public static TextStyle TS_ALMOST_CORRECT;
-	public static TextStyle TS_WRONG;
+
+	public static TextStyle TS_ERROR_MARKER_WRONG;
+	public static TextStyle TS_ERROR_MARKER_ALMOST_CORRECT;
+
 	public static TextStyle TS_GREY;
-	public static TextStyle TS_RED;
-	public static TextStyle TS_SEMI_TITLE_CORRECT_BOLD;
+
 	public static TextStyle TS_SEMI_TITLE_M_BOLD;
 	public static TextStyle TS_SEMI_TITLE_F_BOLD;
+
+	public static TextStyle TS_DEFAULT_WRONG;
+	public static TextStyle TS_M_WRONG;
+	public static TextStyle TS_F_WRONG;
 
 	private static ColorRegistry COLOR_REGISTRY;
 
@@ -206,16 +208,23 @@ public class Resources {
 		TS_DEFAULT = new TextStyle();
 		TS_DEFAULT.font = FONT_REGISTRY.get(FONT_DEFAULT);
 
+		TS_DEFAULT_WRONG = new TextStyle();
+		TS_DEFAULT_WRONG.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+		TS_DEFAULT_WRONG.foreground = Resources.getColor(COLOR_RED);
+		TS_DEFAULT_WRONG.strikeout = true;
+
+		TS_M_WRONG = new TextStyle();
+		TS_M_WRONG.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+		TS_M_WRONG.foreground = Resources.getColor(COLOR_M);
+		TS_M_WRONG.strikeout = true;
+
+		TS_F_WRONG = new TextStyle();
+		TS_F_WRONG.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+		TS_F_WRONG.foreground = Resources.getColor(COLOR_F);
+		TS_F_WRONG.strikeout = true;
+
 		TS_DEFAULT_BOLD = new TextStyle();
 		TS_DEFAULT_BOLD.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
-
-		TS_M = new TextStyle();
-		TS_M.foreground = Resources.getColor(COLOR_M);
-		TS_M.font = FONT_REGISTRY.get(FONT_DEFAULT);
-
-		TS_F = new TextStyle();
-		TS_F.foreground = Resources.getColor(COLOR_F);
-		TS_F.font = FONT_REGISTRY.get(FONT_DEFAULT);
 
 		TS_M_BOLD = new TextStyle();
 		TS_M_BOLD.foreground = Resources.getColor(COLOR_M);
@@ -225,27 +234,17 @@ public class Resources {
 		TS_F_BOLD.foreground = Resources.getColor(COLOR_F);
 		TS_F_BOLD.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
 
-		TS_WRONG = new TextStyle();
-		TS_WRONG.foreground = Resources.getColor(COLOR_RED);
-		TS_WRONG.strikeout = true;
-		TS_WRONG.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+		TS_ERROR_MARKER_WRONG = new TextStyle();
+		TS_ERROR_MARKER_WRONG.foreground = Resources.getColor(COLOR_RED);
+		TS_ERROR_MARKER_WRONG.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
 
-		TS_ALMOST_CORRECT = new TextStyle();
-		TS_ALMOST_CORRECT.foreground = Resources.getColor(COLOR_ORANGE);
-		TS_ALMOST_CORRECT.strikeout = true;
-		TS_ALMOST_CORRECT.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
+		TS_ERROR_MARKER_ALMOST_CORRECT = new TextStyle();
+		TS_ERROR_MARKER_ALMOST_CORRECT.foreground = Resources.getColor(COLOR_ORANGE);
+		TS_ERROR_MARKER_ALMOST_CORRECT.font = FONT_REGISTRY.get(FONT_DEFAULT_BOLD);
 
 		TS_GREY = new TextStyle();
 		TS_GREY.foreground = Resources.getColor(COLOR_GREY);
 		TS_GREY.font = FONT_REGISTRY.get(FONT_DEFAULT);
-
-		TS_RED = new TextStyle();
-		TS_RED.foreground = Resources.getColor(COLOR_RED);
-		TS_RED.font = FONT_REGISTRY.get(FONT_DEFAULT);
-
-		TS_SEMI_TITLE_CORRECT_BOLD = new TextStyle();
-		TS_SEMI_TITLE_CORRECT_BOLD.foreground = Resources.getColor(COLOR_RED);
-		TS_SEMI_TITLE_CORRECT_BOLD.font = FONT_REGISTRY.get(FONT_SEMI_TITLE_BOLD);
 	}
 
 	public static TextStyle getTextStyle(String textStyle) {
