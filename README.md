@@ -30,7 +30,7 @@ Enjoy &mdash; Lorenz
 * You have installed Java SDK 8 or higher on your system.
 
 ### Instructions
-1. Download [VocabularyFox.jar](https://github.com/lwiest/VocabularyFox/releases/download/latest/VocabularyFox.jar) to a folder.
+1. Download [VocabularyFox.jar](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.jar) to a folder.
 2. Open a command prompt in that folder and enter
    ``` 
    java -jar VocabularyFox.jar
