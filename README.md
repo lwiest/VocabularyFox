@@ -26,12 +26,15 @@ Enjoy &mdash; Lorenz
 
 ## Quick Start
 
-### Instructions
+### Prerequisites
+* You have installed Java SDK 8 or higher on your system.
 
-(Windows only)
-1. Download [VocabularyFox.zip](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.zip).
-2. Unzip this file to a folder.
-3. Locate the file `VocabularyFox.exe` in the folder, then double-click it.
+### Instructions
+1. Download [VocabularyFox.jar](https://github.com/lwiest/VocabularyFox/releases/download/latest/VocabularyFox.jar) to a folder.
+2. Open a command prompt in that folder and enter
+   ``` 
+   java -jar VocabularyFox.jar
+   ```
 
 ## Visual Tour
 
@@ -90,9 +93,8 @@ It is easy to add your own quizzes to VocabularyFox!
 
 ## Technical Footnotes
 
-* VocabularyFox looks for quizzes in the `quizzes` folder, located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this folder, then VocabularyFox automatically creates at this location a `quizzes` folder with a sample quiz.
-* VocabularyFox saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFolder.exe` file. If VocabularyFox doesn't find this file, then VocabularyFox automatically creates it at this location.
-* The `VocabularyFox.exe` file of the [release](https://github.com/lwiest/VocabularyFox/releases/latest) contains the VocabularyFox Java classes and startup code for Windows. The startup code looks for a Java Runtime installed on your system. If it doesn't find one, it uses the OpenJDK Java Runtime bundled with `VocabularyFox.zip` of the [release](https://github.com/lwiest/VocabularyFox/releases/latest). It is located in the `openJdk` folder. If a Java Runtime is installed on your system, you can simply delete the `openJdk` folder. The file `VocabularyFox.exe` was created with Launch4J. Both Launch4J and OpenJDK are open-source software.
+* VocabularyFox looks for quizzes in the `quizzes` folder, located in the same folder as the `VocabularyFox.jar` file. If VocabularyFox doesn't find this folder, then VocabularyFox automatically creates at this location a `quizzes` folder with a sample quiz.
+* VocabularyFox saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFox.jar` file. If VocabularyFox doesn't find this file, then VocabularyFox automatically creates it at this location.
 
 ## Build Instructions
 
