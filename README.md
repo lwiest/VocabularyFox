@@ -73,11 +73,11 @@ After you have entered all answers, your results are listed:
 <img src="pics/pic09.png"/>
 
 Your answers are are color-coded as follows: 
-* Black (![Black](pics/color_black.pgn)): Correct answer on your first try
-* Orange (![Orange](pics/color_orange.pgn)) exclamation mark: Correct answer on your second try
-* Red (![Red](pics/color_red.pgn)) exclamation mark: Correct answer on your third try - or no correct answer at all
-* Blue (![Blue](pics/color_blue.pgn)): Noun of masculine gender
-* Dark red (![Dark red](pics/color_darkred.pgn)): Noun of feminine gender
+* Black (<img src="pics/color_black.pgn"/>): Correct answer on your first try
+* Orange (<img src="pics/color_orange.pgn"/>) exclamation mark: Correct answer on your second try
+* Red (<img src="pics/color_red.pgn"/>) exclamation mark: Correct answer on your third try - or no correct answer at all
+* Blue (<img src="pics/color_blue.pgn"/>): Noun of masculine gender
+* Dark red (<img src="pics/color_darkred.pgn"/>): Noun of feminine gender
 
 To save your results as a web page to the file system, click on the download page icon <img src="pics/pic10.png"/>.
 
