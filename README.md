@@ -79,7 +79,7 @@ Your answers are are color-coded as follows:
 * Blue <img src="pics/color_blue.png"/> : Noun of masculine gender
 * Dark red <img src="pics/color_darkred.png"/> : Noun of feminine gender
 
-To save your results as a web page to the file system, click on the download page icon <img src="pics/pic10.png"/>.
+To save your results as a web page to the file system, click on the download page icon <img src="pics/color_blue.png"/>.
 
 If you'd like to repeat a quiz, you can repeat either the entire quiz or just the words with wrong answers:
 
