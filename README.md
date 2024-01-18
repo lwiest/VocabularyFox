@@ -7,8 +7,7 @@ VocabularyFox offers the following:
 * Lets you add your own vocabulary quizzes easily
 * Includes a sample vocabulary quiz
 * Lets you choose the language of the user interface (currently English and German).  
-* >[!NOTE]
-  > If you like to contribute to adding another language, feel free to contact me at "lo (dot) wiest (at) web (dot) de".
+**NOTE**: If you like to contribute to adding another language, feel free to contact me at "lo (dot) wiest (at) web (dot) de".
 
 I developed VocabularyFox on Windows 8.1 (64-bit), but it should be easy to port it to other platforms.
 
@@ -125,9 +124,7 @@ It is easy to add your own quizzes to VocabularyFox!
 To port VocabularyFox to another platform, apply the following changes:
 
 1. Adjust the font name assigned to variable `Resources.FONT_NAME` (currently `"Calibri"`) to a font available on your platform.
-2. Replace the SWT library `org.eclipse.swt.win32.win32.x86_64_XXX.jar` with the SWT library specific to your platform 
->[!TIP]
-> The library name follows the pattern `org.eclipse.swt.<platform>_<version>.v<timestamp>.jar`.
+2. Replace the SWT library `org.eclipse.swt.win32.win32.x86_64_XXX.jar` with the SWT library specific to your platform. (The library name follows the pattern `org.eclipse.swt.<platform>_<version>.v<timestamp>.jar`.)
 
 ## License
 
