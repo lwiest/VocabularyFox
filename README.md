@@ -27,7 +27,7 @@ Enjoy &mdash; Lorenz
 ## Quick Start
 
 ### Prerequisites
-* You have installed Java JDK 8 or Java SDK 8 or higher on your system.
+* You have installed Java JDK (or SDK) 8 or higher on your system.
 
 ### Instructions
 1. Download [VocabularyFox.jar](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.jar) to a folder.
@@ -61,7 +61,7 @@ This is a sample of a French quiz:
 
 <img src="pics/pic04.png"/> <img src="pics/pic05.png"/>
 
-_(French quizzes only)_ To enter French text with a non-French keyboard, click button (1). This opens a list of French letters. Select one of the letters to insert it into your answer.
+_(French quizzes only)_ To enter French text with a non-French keyboard, click button (1). This opens a list of French characters. Select one of the characters to insert it into your answer.
 
 <img src="pics/pic07.png"/>
 
