@@ -7,7 +7,8 @@ VocabularyFox offers the following:
 * Lets you add your own vocabulary quizzes easily
 * Includes a sample vocabulary quiz
 * Lets you choose the language of the user interface (currently English and German).  
-**NOTE**: If you like to contribute to adding another language, feel free to contact me at "lo (dot) wiest (at) web (dot) de".
+* >[!NOTE]
+  > If you like to contribute to adding another language, feel free to contact me at "lo (dot) wiest (at) web (dot) de".
 
 I developed VocabularyFox on Windows 8.1 (64-bit), but it should be easy to port it to other platforms.
 
@@ -27,7 +28,7 @@ Enjoy &mdash; Lorenz
 ## Quick Start
 
 ### Prerequisites
-* You have installed Java SDK 8 or higher on your system.
+* You have installed Java JDK 8 or Java SDK 8 or higher on your system.
 
 ### Instructions
 1. Download [VocabularyFox.jar](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.jar) to a folder.
@@ -44,7 +45,9 @@ Select a vocabulary quiz from the list:
 
 <img src="pics/pic01.png"/>
 
-To select quiz options, click the gear icon <img src="pics/pic02.png"/>. This opens the Preferences dialog. It displays the version number, lets you change the language of the user interface (currently English and German), and lets you modify quiz options:
+### Selecting Quiz Options
+
+To select quiz options, click the gear icon <img src="pics/pic02.png"/>. This opens the _Preferences_ dialog. It displays the version number, lets you change the language of the user interface (currently English and German), and lets you modify quiz options:
 
 <img src="pics/pic03.png"/>
 
@@ -54,15 +57,16 @@ This is a sample of a French quiz:
 
 <img src="pics/pic06.png"/>
 
-**TIP**: To make typing easier when entering an answer, you can use a set of abbreviations (depending on the language). The screenshots below show the supported abbreviations for English and French quizzes:
+> [!TIP]
+> To make typing easier when entering an answer, you can use a set of abbreviations (depending on the language). The screenshots below show the supported abbreviations for English and French quizzes:
 
 <img src="pics/pic04.png"/> <img src="pics/pic05.png"/>
 
-_(French quizzes only)_ To enter French text with a non-French keyboard, click button (1). This opens a list of French characters. Select one of the characters to insert it into your answer.
+_(French quizzes only)_ To enter French text with a non-French keyboard, click button (1). This opens a list of French letters. Select one of the letters to insert it into your answer.
 
 <img src="pics/pic07.png"/>
 
-_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn't indicate the gender. After typing the answer, click either the "m." (masculine) or "f." (feminine) button to define the gender, then continue with the next word.
+_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn't indicate the gender. After typing the answer, click either the _m._ (masculine) or _f._ (feminine) button to define the gender, then continue with the next word.
 
 <img src="pics/pic08.png"/>
 
@@ -75,13 +79,17 @@ After you have entered all answers, your results are listed:
 Your answers are are color-coded as follows: 
 * Black <img src="pics/color_black.png"/> : Correct answer on your first try
 * Orange <img src="pics/color_orange.png"/> exclamation mark: Correct answer on your second try
-* Red <img src="pics/color_red.png"/> exclamation mark: Correct answer on your third try - or no correct answer at all
+* Red <img src="pics/color_red.png"/> exclamation mark: Correct answer on your third try &mdash; or no correct answer at all
 * Blue <img src="pics/color_blue.png"/> : Noun of masculine gender
 * Dark red <img src="pics/color_darkred.png"/> : Noun of feminine gender
 
+### Saving Quiz Results
+
 To save your results as a web page to the file system, click on the download page icon <img src="pics/pic10.png"/>.
 
-If you'd like to repeat a quiz, you can repeat either the entire quiz or just the words with wrong answers:
+### Repeating a Quiz
+
+If you like to repeat a quiz, you can repeat either the entire quiz or just the words with wrong answers:
 
 <img src="pics/pic11.png"/>
 
@@ -108,7 +116,7 @@ It is easy to add your own quizzes to VocabularyFox!
 
 1. Download the [project ZIP file](https://github.com/lwiest/VocabularyFox/archive/master.zip) from GitHub.
 2. Unzip it to a temporary folder.
-3. **To work with the Atari 6502 Assembler source code in your Eclipse IDE**, import the `VocabularyFox` project from the temporary folder to your Eclipse IDE as an import source _General > Existing Projects into Workspace_.
+3. **To work with the VocabularyFox source code in your Eclipse IDE**, import the `VocabularyFox` project from the temporary folder to your Eclipse IDE as an import source _General > Existing Projects into Workspace_.
 4. In the _Project Explorer_ view, right-click _VocabularyFox_ and select _Run As > Java Application_.
 5. The VocabularyFox application starts.
 
@@ -116,8 +124,10 @@ It is easy to add your own quizzes to VocabularyFox!
 
 To port VocabularyFox to another platform, apply the following changes:
 
-1. Adjust the font name set to `Resources.FONT_NAME` (currently `"Calibri"`) to a font available on your platform.
-2. Replace the SWT library `org.eclipse.swt.win32.win32.x86_64_XXX.jar` with the SWT library specific to your platform (Tip: The library name follows the pattern `org.eclipse.swt.<platform>_<version>.v<timestamp>.jar`.).
+1. Adjust the font name assigned to variable `Resources.FONT_NAME` (currently `"Calibri"`) to a font available on your platform.
+2. Replace the SWT library `org.eclipse.swt.win32.win32.x86_64_XXX.jar` with the SWT library specific to your platform 
+>[!TIP]
+> The library name follows the pattern `org.eclipse.swt.<platform>_<version>.v<timestamp>.jar`.
 
 ## License
 
