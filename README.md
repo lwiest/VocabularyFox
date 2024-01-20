@@ -1,15 +1,15 @@
 # VocabularyFox
 
-VocabularyFox is an open-source vocabulary quiz program, written in Java.
+_VocabularyFox_ is an open-source vocabulary quiz program, written in Java.
 
-VocabularyFox offers the following:
+_VocabularyFox_ offers the following:
 * Supports (but is not limited to) English and French vocabulary quizzes
 * Lets you add your own vocabulary quizzes easily
 * Includes a sample vocabulary quiz
 * Lets you choose the language of the user interface (currently English and German).  
 **NOTE**: If you like to contribute to adding another language, feel free to contact me at "lo (dot) wiest (at) web (dot) de".
 
-I developed VocabularyFox on Windows 8.1 (64-bit), but it should be easy to port it to other platforms.
+I developed _VocabularyFox_ on Windows 8.1 (64-bit), but it should be easy to port it to other platforms.
 
 Enjoy &mdash; Lorenz
 
@@ -65,7 +65,7 @@ _(French quizzes only)_ To enter French text with a non-French keyboard, click b
 
 <img src="pics/pic07.png"/>
 
-_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn't indicate the gender. After typing the answer, click either the _m._ (masculine) or _f._ (feminine) button to define the gender, then continue with the next word.
+_(French quizzes only)_ Buttons (2) appear with nouns whose article doesn&rsquo;t indicate the gender. After typing the answer, click either the _m._ (masculine) or _f._ (feminine) button to define the gender, then continue with the next word.
 
 <img src="pics/pic08.png"/>
 
@@ -94,34 +94,34 @@ If you like to repeat a quiz, you can repeat either the entire quiz or just the 
 
 ## How to Add Your Own Quizzes
 
-It is easy to add your own quizzes to VocabularyFox!
+It is easy to add your own quizzes to _VocabularyFox_!
 * See [instructions in English](doc/VocabularyFox.Instructions.English.pdf).
 * See [instructions in German](doc/VocabularyFox.Instructions.German.pdf).
 
 ## Technical Footnotes
 
-* VocabularyFox looks for quizzes in the `quizzes` folder, located in the same folder as the `VocabularyFox.jar` file. If VocabularyFox doesn't find this folder, then VocabularyFox automatically creates at this location a `quizzes` folder with a sample quiz.
-* VocabularyFox saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFox.jar` file. If VocabularyFox doesn't find this file, then VocabularyFox automatically creates it at this location.
+* _VocabularyFox_ looks for quizzes in the `quizzes` folder, located in the same folder as the `VocabularyFox.jar` file. If _VocabularyFox_ doesn&rsquo;t find this folder, then _VocabularyFox_ automatically creates at this location a `quizzes` folder with a sample quiz.
+* _VocabularyFox_ saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFox.jar` file. If _VocabularyFox_ doesn&rsquo;t find this file, then _VocabularyFox_ automatically creates it at this location.
 
 ## Build Instructions
 
 ### Prerequisites
 
 * You are running a Windows (64-bit) system.
-* You have installed Java SDK 8 (or higher) (64-bit) on your system (I used Java SDK 8 (64-bit)).
+* You have installed Java SDK 8 (64-bit) or higher on your system (I used Java SDK 8 (64-bit)).
 * You have installed an Eclipse IDE on your system (I used Eclipse 4.5.0 "Mars" (64-bit)).
 
 ### Instructions
 
-1. Download the [project ZIP file](https://github.com/lwiest/VocabularyFox/archive/master.zip) from GitHub.
+1. Download this project&rsquo;s ZIP file from GitHub.
 2. Unzip it to a temporary folder.
-3. **To work with the VocabularyFox source code in your Eclipse IDE**, import the `VocabularyFox` project from the temporary folder to your Eclipse IDE as an import source _General > Existing Projects into Workspace_.
+3. **To work with the _VocabularyFox_ source code in your Eclipse IDE**, import the `VocabularyFox` project from the temporary folder into your Eclipse IDE as an import source _General > Existing Projects into Workspace_.
 4. In the _Project Explorer_ view, right-click _VocabularyFox_ and select _Run As > Java Application_.
-5. The VocabularyFox application starts.
+5. The _VocabularyFox_ application starts.
 
 ## Porting Tips
 
-To port VocabularyFox to another platform, apply the following changes:
+To port _VocabularyFox_ to another platform, apply the following changes:
 
 1. Adjust the font name assigned to variable `Resources.FONT_NAME` (currently `"Calibri"`) to a font available on your platform.
 2. Replace the SWT library `org.eclipse.swt.win32.win32.x86_64_XXX.jar` with the SWT library specific to your platform. (The library name follows the pattern `org.eclipse.swt.<platform>_<version>.v<timestamp>.jar`.)
