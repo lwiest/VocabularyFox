@@ -32,6 +32,7 @@ Enjoy &mdash; Lorenz
 ### Instructions
 1. Download [VocabularyFox.jar](https://github.com/lwiest/VocabularyFox/releases/download/v2.0/VocabularyFox.jar) to a folder.
 2. Open a command prompt in that folder and enter
+
    ``` 
    java -jar VocabularyFox.jar
    ```
