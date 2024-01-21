@@ -35,6 +35,7 @@ Enjoy &mdash; Lorenz
    ``` 
    java -jar VocabularyFox.jar
    ```
+3. This runs _VocabularyFox_.
 
 ## Visual Tour
 
