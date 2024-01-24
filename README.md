@@ -42,13 +42,13 @@ Enjoy &mdash; Lorenz
 
 ### Selecting a Quiz
 
-Select a vocabulary quiz from the list:
+Select a vocabulary quiz from the list (the sample quizzes in the list are for illustration purposes):
 
 <img src="pics/pic01.png"/>
 
 ### Selecting Quiz Options
 
-To select quiz options, click the gear icon <img src="pics/pic02.png"/>. This opens the _Preferences_ dialog. It displays the version number, lets you change the language of the user interface (currently English and German), and lets you modify quiz options:
+(Optional) To select quiz options, click the gear icon <img src="pics/pic02.png"/>. This opens the _Preferences_ dialog. It displays the version number, lets you change the language of the user interface (currently English and German), and lets you modify quiz options:
 
 <img src="pics/pic03.png"/>
 
@@ -102,8 +102,8 @@ It is easy to add your own quizzes to _VocabularyFox_!
 
 ## Technical Footnotes
 
-* _VocabularyFox_ looks for quizzes in the `quizzes` folder, located in the same folder as the `VocabularyFox.jar` file. If _VocabularyFox_ doesn&rsquo;t find this folder, then _VocabularyFox_ automatically creates at this location a `quizzes` folder with a sample quiz.
-* _VocabularyFox_ saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFox.jar` file. If _VocabularyFox_ doesn&rsquo;t find this file, then _VocabularyFox_ automatically creates it at this location.
+* _VocabularyFox_ looks for quizzes in the `quizzes` folder, located in the same folder as the `VocabularyFox.jar` file. If _VocabularyFox_ doesn&rsquo;t find this folder, then _VocabularyFox_ automatically creates it, containing a sample quiz.
+* _VocabularyFox_ saves and loads application preferences from the `.preferences_vocabularyfox` file, which is located in the same folder as the `VocabularyFox.jar` file. If _VocabularyFox_ doesn&rsquo;t find this file, then _VocabularyFox_ automatically creates it.
 
 ## Build Instructions
 
