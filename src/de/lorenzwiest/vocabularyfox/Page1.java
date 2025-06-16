@@ -162,7 +162,7 @@ public class Page1 extends WizardPage {
 		this.searchText.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				searchTextKeyPresed(e);
+				searchTextKeyPressed(e);
 			}
 		});
 	}
@@ -202,7 +202,7 @@ public class Page1 extends WizardPage {
 		}
 	}
 
-	private void searchTextKeyPresed(KeyEvent e) {
+	private void searchTextKeyPressed(KeyEvent e) {
 		boolean hasItems = this.viewer.getTree().getItemCount() > 0;
 		boolean isArrowDown = (e.keyCode == SWT.ARROW_DOWN);
 		if (hasItems && isArrowDown) {
