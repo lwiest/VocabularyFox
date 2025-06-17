@@ -361,12 +361,12 @@ public class Page1 extends WizardPage {
 			for (int i = 0; i < pathElements.size(); i++) {
 				pathElements.set(i, pathElements.get(i).trim());
 			}
-			recursivelyAddTreeNode(rootNode, pathElements.get(0), pathElements.subList(1, pathElements.size()), quizInfo);
+			addTreeNodeRecursively(rootNode, pathElements.get(0), pathElements.subList(1, pathElements.size()), quizInfo);
 		}
 		return rootNode.getChildren();
 	}
 
-	private static void recursivelyAddTreeNode(TreeNode parentNode, String name, List<String> restNames, QuizInfo quizInfo) {
+	private static void addTreeNodeRecursively(TreeNode parentNode, String name, List<String> restNames, QuizInfo quizInfo) {
 		if (restNames.isEmpty()) {
 			Language targetLanguage = quizInfo.getTargetLanguage();
 			File file = quizInfo.getFile();
@@ -386,7 +386,7 @@ public class Page1 extends WizardPage {
 			parentNode.addChild(childFolderNode);
 		}
 
-		recursivelyAddTreeNode(childFolderNode, restNames.get(0), restNames.subList(1, restNames.size()), quizInfo);
+		addTreeNodeRecursively(childFolderNode, restNames.get(0), restNames.subList(1, restNames.size()), quizInfo);
 	}
 
 	private void selectFirstLeaf() {
