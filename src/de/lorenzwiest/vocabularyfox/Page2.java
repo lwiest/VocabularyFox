@@ -790,4 +790,3 @@ public class Page2 extends WizardPage {
 		this.lblF.setBackground(Resources.getColor(Resources.COLOR_F));
 	}
 }
-// 802
