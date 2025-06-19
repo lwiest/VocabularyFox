@@ -251,7 +251,7 @@ public class Resources {
 		if (TEXT_STYLE_REGISTRY.containsKey(textStyle)) {
 			return TEXT_STYLE_REGISTRY.get(textStyle);
 		} else {
-			System.out.println("ERROR: Text style registry does not contain text style\"" + textStyle + "\".");
+			System.out.println("ERROR: Text style registry does not contain text style \"" + textStyle + "\".");
 			return null;
 		}
 	}
