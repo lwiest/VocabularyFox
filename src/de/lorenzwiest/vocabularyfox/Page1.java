@@ -541,8 +541,8 @@ public class Page1 extends WizardPage {
 	//////////////////////////////////////////////////////////////////////////////
 
 	public static class TreeNode {
-		static private final TreeNode[] EMPTY_NODES = new TreeNode[0];
-		static private final List<TreeNode> EMPTY_LIST = new ArrayList<TreeNode>();
+		private static final TreeNode[] EMPTY_NODES = new TreeNode[0];
+		private static final List<TreeNode> EMPTY_LIST = new ArrayList<TreeNode>();
 
 		private TreeNode parent;
 		private final String text;
