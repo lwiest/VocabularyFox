@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 
 public class ImageButton extends Canvas {
+
 	private enum MouseState {
 		UP, //
 		HOVER, //

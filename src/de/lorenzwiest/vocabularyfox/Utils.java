@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 
 public class Utils {
+
 	public static void setButtonDefaultFontAndWidth(Button button) {
 		Font defaultFont = Resources.getFont(Resources.FONT_DEFAULT);
 		button.setFont(defaultFont);

@@ -30,6 +30,7 @@ import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.Composite;
 
 public class StyledLabel extends StyledText {
+
 	public StyledLabel(Composite parent, int style) {
 		super(parent, style);
 		setEditable(false);
