@@ -480,9 +480,9 @@ public class Page3 extends WizardPage {
 
 	private TextStyle getTextStyle(Gender gender) {
 		TextStyle textStyle = Resources.TS_DEFAULT_BOLD;
-		if (gender == Gender.M) {
+		if (gender == Gender.MASCULINE) {
 			textStyle = Resources.TS_M_BOLD;
-		} else if (gender == Gender.F) {
+		} else if (gender == Gender.FEMININE) {
 			textStyle = Resources.TS_F_BOLD;
 		}
 		return textStyle;
@@ -490,9 +490,9 @@ public class Page3 extends WizardPage {
 
 	private TextStyle getTextStyleWrong(Gender gender) {
 		TextStyle textStyle = Resources.TS_DEFAULT_WRONG;
-		if (gender == Gender.M) {
+		if (gender == Gender.MASCULINE) {
 			textStyle = Resources.TS_M_WRONG;
-		} else if (gender == Gender.F) {
+		} else if (gender == Gender.FEMININE) {
 			textStyle = Resources.TS_F_WRONG;
 		}
 		return textStyle;
@@ -692,17 +692,17 @@ public class Page3 extends WizardPage {
 			} else if (isAnswerCorrect || isAnswerAlmostCorrect) {
 				cssActualAnswer = "bold";
 				Gender expectedGender = question.getExpectedGender();
-				if (expectedGender == Gender.M) {
+				if (expectedGender == Gender.MASCULINE) {
 					cssActualAnswer = "m-bold";
-				} else if (expectedGender == Gender.F) {
+				} else if (expectedGender == Gender.FEMININE) {
 					cssActualAnswer = "f-bold";
 				}
 			} else if (isAnswerWrong) {
 				cssActualAnswer = "bold-wrong";
 				Gender actualGender = question.getActualGender();
-				if (actualGender == Gender.M) {
+				if (actualGender == Gender.MASCULINE) {
 					cssActualAnswer = "bold-m-wrong";
-				} else if (actualGender == Gender.F) {
+				} else if (actualGender == Gender.FEMININE) {
 					cssActualAnswer = "bold-f-wrong";
 				}
 			}
@@ -719,9 +719,9 @@ public class Page3 extends WizardPage {
 			} else {
 				cssExpectedAnswer = "bold";
 				Gender expectedGender = question.getExpectedGender();
-				if (expectedGender == Gender.M) {
+				if (expectedGender == Gender.MASCULINE) {
 					cssExpectedAnswer = "m-bold";
-				} else if (expectedGender == Gender.F) {
+				} else if (expectedGender == Gender.FEMININE) {
 					cssExpectedAnswer = "f-bold";
 				}
 			}

@@ -155,10 +155,10 @@ public class Quiz {
 
 				Gender expectedGender = Gender.DONT_CARE;
 				if (strExpectedAnswer.contains(PROP_GENDER_M)) {
-					expectedGender = Gender.M;
+					expectedGender = Gender.MASCULINE;
 					strExpectedAnswer = strExpectedAnswer.replace(PROP_GENDER_M, "").trim();
 				} else if (strExpectedAnswer.contains(PROP_GENDER_F)) {
-					expectedGender = Gender.F;
+					expectedGender = Gender.FEMININE;
 					strExpectedAnswer = strExpectedAnswer.replace(PROP_GENDER_F, "").trim();
 				}
 

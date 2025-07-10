@@ -26,7 +26,7 @@ package de.lorenzwiest.vocabularyfox;
 
 public enum Gender {
 	INITIAL, //
-	M, //
-	F, //
+	MASCULINE, //
+	FEMININE, //
 	DONT_CARE //
 }

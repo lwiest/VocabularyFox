@@ -165,7 +165,7 @@ public class Page2 extends WizardPage {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				Page2.this.txtAnswer.setForeground(Resources.getColor(Resources.COLOR_M));
-				Page2.this.wizard.getQuiz().getQuestions().get(Page2.this.questionIndex).setActualGender(Gender.M);
+				Page2.this.wizard.getQuiz().getQuestions().get(Page2.this.questionIndex).setActualGender(Gender.MASCULINE);
 				Page2.this.btnNext.setEnabled(true);
 				stopPulsing();
 			}
@@ -203,7 +203,7 @@ public class Page2 extends WizardPage {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				Page2.this.txtAnswer.setForeground(Resources.getColor(Resources.COLOR_F));
-				Page2.this.wizard.getQuiz().getQuestions().get(Page2.this.questionIndex).setActualGender(Gender.F);
+				Page2.this.wizard.getQuiz().getQuestions().get(Page2.this.questionIndex).setActualGender(Gender.FEMININE);
 				Page2.this.btnNext.setEnabled(true);
 				stopPulsing();
 			}
@@ -492,9 +492,9 @@ public class Page2 extends WizardPage {
 				question.setActualAnswer(answer);
 
 				TextStyle textStyle = Resources.TS_SEMI_TITLE_BOLD;
-				if (expectedGender == Gender.M) {
+				if (expectedGender == Gender.MASCULINE) {
 					textStyle = Resources.TS_SEMI_TITLE_M_BOLD;
-				} else if (expectedGender == Gender.F) {
+				} else if (expectedGender == Gender.FEMININE) {
 					textStyle = Resources.TS_SEMI_TITLE_F_BOLD;
 				}
 				String expectedAnswer = question.getExpectedAnswer();
